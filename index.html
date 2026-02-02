@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rebeccademie - Grundschule Klasse 3</title>
+  <title>Rebeccapedia - Grundschule Klasse 3</title>
   <style>
     /* ===== CSS Reset & Base ===== */
     *, *::before, *::after {
@@ -561,11 +561,122 @@
       margin-bottom: 0.25rem;
     }
 
-    /* ===== Print Styles ===== */
+    /* ===== Interactive Worksheet (Online Mode) ===== */
+    .interactive-mode .task-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .interactive-mode .answer-input-wrapper {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .interactive-mode input.answer-input {
+      width: 100%;
+      max-width: 300px;
+      padding: 0.625rem 0.75rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .interactive-mode input.answer-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .interactive-mode input.answer-input.correct {
+      border-color: var(--success);
+      background: #f0fff4;
+    }
+
+    .interactive-mode input.answer-input.incorrect {
+      border-color: var(--error);
+      background: #fff0f0;
+    }
+
+    .interactive-mode textarea.work-input {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.625rem 0.75rem;
+      font-size: 0.95rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .interactive-mode .check-btn {
+      align-self: flex-start;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .interactive-mode .check-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .interactive-mode .check-btn:disabled {
+      background: var(--text-secondary);
+      cursor: not-allowed;
+    }
+
+    .interactive-mode .feedback {
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .interactive-mode .feedback.correct {
+      background: #f0fff4;
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+
+    .interactive-mode .feedback.incorrect {
+      background: #fff0f0;
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+
+    .interactive-mode .feedback.hint {
+      background: #fff9e6;
+      color: var(--warning);
+      border: 1px solid var(--warning);
+    }
+
+    .interactive-mode .bulk-check-btns {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Print Styles (Robust A4) ===== */
     @media print {
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         background: white;
         font-size: 11pt;
+        margin: 0;
+        padding: 0;
       }
 
       .no-print {
@@ -574,25 +685,54 @@
 
       .container {
         max-width: 100%;
+        width: 100%;
+        margin: 0;
         padding: 0;
+      }
+
+      /* Sheet container - prevents content from being cut off */
+      .sheet {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10mm;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .sheet:last-child {
+        page-break-after: auto;
       }
 
       .worksheet {
         box-shadow: none;
         border-radius: 0;
+        width: 100%;
       }
 
       .worksheet-header {
-        padding: 1cm 0;
+        padding: 0;
+        margin-bottom: 0.8cm;
+        border-bottom: none;
       }
 
       .worksheet-header h2 {
         font-size: 18pt;
+        font-weight: 600;
+        margin-bottom: 0.3cm;
+      }
+
+      .worksheet-meta {
+        font-size: 9pt;
+        color: #666;
       }
 
       .name-date-line {
         background: none;
-        padding: 0.5cm 0;
+        padding: 0.4cm 0;
+        margin-bottom: 0.8cm;
+        border-bottom: 1px solid #ddd;
       }
 
       .worksheet-tabs {
@@ -604,54 +744,177 @@
       }
 
       .worksheet-content {
-        padding: 0.5cm 0;
+        padding: 0;
+      }
+
+      /* Avoid breaks inside elements */
+      .level-section,
+      .task-item,
+      .solution-item {
+        break-inside: avoid;
+        page-break-inside: avoid;
       }
 
       .level-section {
-        page-break-inside: avoid;
-        margin-bottom: 1cm;
+        margin-bottom: 0.8cm;
       }
 
       .level-section h3 {
         font-size: 14pt;
-        border-bottom-width: 1pt;
+        font-weight: 600;
+        margin-bottom: 0.5cm;
+        padding-bottom: 0.2cm;
+        border-bottom: 2pt solid #0071e3;
       }
 
       .task-item {
-        page-break-inside: avoid;
-        margin-bottom: 0.5cm;
-        padding-bottom: 0.5cm;
+        margin-bottom: 0.6cm;
+        padding-bottom: 0.6cm;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .task-item:last-child {
+        border-bottom: none;
+      }
+
+      .task-number {
+        font-weight: 600;
+        color: #0071e3;
+      }
+
+      .task-text {
+        font-size: 11pt;
+        line-height: 1.5;
+      }
+
+      .task-hints {
+        display: none; /* Hide hints in print */
       }
 
       .answer-space {
-        min-height: 2cm;
-        border: 1px solid #999;
+        margin-top: 0.4cm;
+        min-height: 2.5cm;
+        border: none;
+        border-bottom: 2px solid #333;
+        background: none;
+        position: relative;
       }
 
+      /* Rechenweg lines for math */
+      .answer-space.with-work::after {
+        content: "";
+        display: block;
+        margin-top: 0.3cm;
+        border-top: 1px solid #999;
+        padding-top: 0.3cm;
+      }
+
+      /* Hide interactive elements in print */
+      .interactive-mode .answer-input-wrapper,
+      .interactive-mode .check-btn,
+      .interactive-mode .feedback,
+      .interactive-mode .bulk-check-btns {
+        display: none !important;
+      }
+
+      /* Solutions styling */
       .solution-item {
-        background: #f5f5f5;
+        background: none;
         border: 1px solid #ddd;
+        padding: 0.3cm;
+        margin-bottom: 0.4cm;
+        border-radius: 4px;
       }
 
+      .solution-item .task-id {
+        font-weight: 600;
+        font-size: 9pt;
+        color: #666;
+      }
+
+      .solution-item .solution-text {
+        color: #34c759;
+        font-weight: 600;
+        font-size: 11pt;
+      }
+
+      .solution-item .solution-steps {
+        font-size: 9pt;
+        color: #666;
+        margin-top: 0.1cm;
+      }
+
+      /* Mini-test header */
       .mini-test-header {
         background: #333 !important;
+        color: white !important;
+        padding: 0.5cm;
+        margin: 0 0 0.5cm 0;
+        border-radius: 4px;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
 
+      .mini-test-header h3 {
+        font-size: 14pt;
+        margin: 0;
+        color: white !important;
+      }
+
+      .mini-test-header p {
+        font-size: 10pt;
+        margin: 0.2cm 0 0 0;
+        color: white !important;
+      }
+
+      .points-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 0.1cm 0.2cm;
+        border-radius: 3px;
+        font-size: 9pt;
+      }
+
+      /* Teacher notes */
       .teacher-notes {
-        background: #f5f5f5;
+        background: #f9f9f9;
         border: 1px solid #ddd;
+        padding: 0.5cm;
+        margin-top: 0.5cm;
+        border-radius: 4px;
+      }
+
+      .teacher-notes h4 {
+        font-size: 11pt;
+        font-weight: 600;
+        margin-bottom: 0.3cm;
+        color: #1565c0;
+      }
+
+      .teacher-notes ul {
+        margin-left: 0.5cm;
+        font-size: 9pt;
       }
 
       /* Page breaks */
       .page-break {
         page-break-before: always;
+        break-before: page;
       }
 
+      /* Page setup - prevents cutoff */
       @page {
         size: A4;
-        margin: 1.5cm;
+        margin: 12mm;
+      }
+
+      /* Remove any fixed widths or overflows */
+      * {
+        max-width: 100% !important;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
       }
     }
 
@@ -700,8 +963,8 @@
 <body>
   <div class="container">
     <header>
-      <h1>Rebeccademie</h1>
-      <p>Grundschule Klasse 3</p>
+      <h1>Rebeccapedia</h1>
+      <p>Grundschule Klasse 3 - Arbeitsblätter</p>
     </header>
 
     <main id="app">
@@ -1193,8 +1456,9 @@
         </div>
 
         <div class="btn-group no-print mb-3">
-          <button class="btn btn-primary" onclick="window.print()">Drucken / PDF</button>
-          <button class="btn btn-secondary" onclick="navigate('prompt')">Zuruck</button>
+          <button class="btn btn-primary" onclick="openPrintView()">📄 PDF drucken</button>
+          <button class="btn btn-success" onclick="openInteractiveWorksheet()">✏️ Online-Übungsblatt</button>
+          <button class="btn btn-secondary" onclick="navigate('prompt')">Zurück</button>
           <button class="btn btn-secondary" onclick="resetApp()">Neues Arbeitsblatt</button>
         </div>
 
@@ -1368,13 +1632,14 @@ ANFORDERUNGEN:
 - Alle Aufgaben mussen mathematisch/sprachlich korrekt sein.
 - IDs fortlaufend: L1-01, L1-02, ... fur Level 1; L2-01, L2-02, ... fur Level 2; usw.
 - Mini-Test IDs: T-01, T-02, ...
+- WICHTIG FUR MATHE: Fuege bei jeder Aufgabe das Feld "answer_value" (Zahl) hinzu fur automatische Prufung im Online-Modus.
 
 WICHTIG: Antworte AUSSCHLIESSLICH mit validem JSON. Kein Text davor oder danach. Kein Markdown-Codeblock.
 
 JSON-SCHEMA (exakt einhalten):
 {
   "meta": {
-    "tool": "Rebeccademie",
+    "tool": "Rebeccapedia",
     "grade": 3,
     "subject": "${subject.name}",
     "topic_id": "${topic.topic_id}",
@@ -1391,7 +1656,8 @@ JSON-SCHEMA (exakt einhalten):
           "task": "Aufgabentext hier",
           "hints": ["Optionaler Tipp 1", "Optionaler Tipp 2"],
           "solution": "Losung hier",
-          "steps": "Kurzer Rechenweg/Erklarung"
+          "steps": "Kurzer Rechenweg/Erklarung",
+          "answer_value": 42
         }
       ]
     }
@@ -1425,7 +1691,11 @@ Beginne jetzt mit dem JSON:`;
       if (!data.meta) {
         errors.push('Feld "meta" fehlt.');
       } else {
-        if (!data.meta.tool) errors.push('meta.tool fehlt.');
+        if (!data.meta.tool) {
+          errors.push('meta.tool fehlt.');
+        } else if (data.meta.tool !== 'Rebeccapedia' && data.meta.tool !== 'Rebeccademie') {
+          console.warn('meta.tool sollte "Rebeccapedia" sein (legacy "Rebeccademie" wird akzeptiert).');
+        }
         if (!data.meta.grade) errors.push('meta.grade fehlt.');
         if (!data.meta.subject) errors.push('meta.subject fehlt.');
         if (!data.meta.topic_id) errors.push('meta.topic_id fehlt.');
@@ -1609,8 +1879,366 @@ Beginne jetzt mit dem JSON:`;
       });
     }
 
+    // ===== Print View (Dedicated) =====
+    function openPrintView() {
+      const data = state.importedData;
+      if (!data) return;
+
+      const meta = data.meta;
+      const levels = data.levels;
+
+      // Generate clean print HTML
+      const printHTML = `<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${meta.topic_title} - Arbeitsblatt</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.5; background: #f5f5f5; padding: 20px; }
+    .sheet { max-width: 210mm; margin: 0 auto 20px; background: white; padding: 15mm; border: 1px solid #e5e5e5; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .header { margin-bottom: 15mm; }
+    .header h1 { font-size: 18pt; font-weight: 600; margin-bottom: 3mm; }
+    .header .meta { font-size: 9pt; color: #666; display: flex; gap: 15px; margin-bottom: 5mm; }
+    .name-date { display: flex; gap: 20px; padding: 8mm 0; border-bottom: 1px solid #ddd; margin-bottom: 8mm; font-size: 10pt; }
+    .name-date span { display: flex; align-items: center; gap: 5px; }
+    .name-date .line { flex: 1; border-bottom: 1px solid #333; min-width: 100px; height: 20px; }
+    .level { margin-bottom: 8mm; }
+    .level h2 { font-size: 14pt; font-weight: 600; margin-bottom: 5mm; padding-bottom: 2mm; border-bottom: 2pt solid #0071e3; color: #0071e3; }
+    .task { margin-bottom: 6mm; }
+    .task-header { font-weight: 600; color: #0071e3; margin-bottom: 2mm; }
+    .task-text { font-size: 11pt; margin-bottom: 3mm; }
+    .answer-line { border-bottom: 2px solid #333; min-height: 25mm; margin-top: 3mm; }
+    .work-lines { margin-top: 3mm; }
+    .work-line { border-bottom: 1px solid #999; height: 8mm; }
+    .no-print { display: none; }
+    .print-btn { position: fixed; top: 20px; right: 20px; padding: 12px 24px; background: #0071e3; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .print-btn:hover { background: #0077ed; }
+    @media print {
+      body { background: white; padding: 0; }
+      .sheet { max-width: 100%; margin: 0; padding: 10mm; border: none; box-shadow: none; border-radius: 0; page-break-after: always; }
+      .sheet:last-child { page-break-after: auto; }
+      .print-btn { display: none; }
+      .answer-line { min-height: 25mm; }
+      @page { size: A4; margin: 12mm; }
+    }
+  </style>
+</head>
+<body>
+  <button class="print-btn no-print" onclick="window.print()">🖨️ Drucken</button>
+
+  <div class="sheet">
+    <div class="header">
+      <h1>${meta.topic_title}</h1>
+      <div class="meta">
+        <span>Fach: ${meta.subject}</span>
+        <span>Klasse: ${meta.grade}</span>
+        <span>Erstellt: ${meta.created_at}</span>
+      </div>
+    </div>
+
+    <div class="name-date">
+      <span>Name: <span class="line"></span></span>
+      <span>Datum: <span class="line"></span></span>
+    </div>
+
+    ${levels.map(level => `
+      <div class="level">
+        <h2>${level.name}</h2>
+        ${level.tasks.map(task => `
+          <div class="task">
+            <div class="task-header">${task.id}</div>
+            <div class="task-text">${formatTaskTextForPrint(task.task)}</div>
+            <div class="answer-line"></div>
+            ${meta.subject === 'Mathe' ? '<div class="work-lines"><div class="work-line"></div><div class="work-line"></div></div>' : ''}
+          </div>
+        `).join('')}
+      </div>
+    `).join('')}
+  </div>
+</body>
+</html>`;
+
+      // Open in new tab
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(printHTML);
+      printWindow.document.close();
+    }
+
+    function formatTaskTextForPrint(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+        .replace(/\n/g, '<br>')
+        .replace(/(\d+)\s*[×x\*]\s*(\d+)/g, '$1 × $2')
+        .replace(/(\d+)\s*[÷:\/]\s*(\d+)/g, '$1 ÷ $2');
+    }
+
+    // ===== Interactive Worksheet =====
+    function openInteractiveWorksheet() {
+      const data = state.importedData;
+      if (!data) return;
+
+      // Store data in sessionStorage for the new tab
+      sessionStorage.setItem('rebeccapedia_worksheet', JSON.stringify(data));
+
+      // Open in new tab
+      const url = window.location.href.split('?')[0] + '?mode=interactive';
+      window.open(url, '_blank');
+    }
+
+    function renderInteractiveWorksheet() {
+      const dataStr = sessionStorage.getItem('rebeccapedia_worksheet');
+      if (!dataStr) {
+        return '<div class="message message-error">Keine Daten gefunden. Bitte öffne das Online-Übungsblatt von der Hauptseite.</div>';
+      }
+
+      const data = JSON.parse(dataStr);
+      const meta = data.meta;
+      const levels = data.levels;
+
+      // Load saved answers from localStorage
+      const savedKey = `rebeccapedia_${meta.topic_id}_${meta.created_at}`;
+      const saved = JSON.parse(localStorage.getItem(savedKey) || '{}');
+
+      return `
+        <div class="breadcrumb no-print">
+          <span>Online-Übungsblatt: ${meta.subject} - ${meta.topic_title}</span>
+        </div>
+
+        <div class="btn-group no-print mb-3">
+          <button class="btn btn-primary" onclick="checkAllTasks()">✓ Alle prüfen</button>
+          <button class="btn btn-secondary" onclick="resetAllTasks()">↺ Zurücksetzen</button>
+          <button class="btn btn-secondary" onclick="window.close()">← Schließen</button>
+        </div>
+
+        <div class="worksheet interactive-mode">
+          <div class="worksheet-header">
+            <h2>${meta.topic_title}</h2>
+            <div class="worksheet-meta">
+              <span>Fach: ${meta.subject}</span>
+              <span>Klasse: ${meta.grade}</span>
+            </div>
+          </div>
+
+          <div class="worksheet-content">
+            ${levels.map((level, levelIdx) => `
+              <div class="level-section">
+                <h3>${level.name}</h3>
+                ${level.tasks.map((task, taskIdx) => {
+                  const taskId = task.id;
+                  const savedAnswer = saved[taskId] || { answer: '', work: '', attempts: 0, correct: false };
+
+                  return `
+                    <div class="task-item" data-task-id="${taskId}">
+                      <div class="task-text">
+                        <span class="task-number">${task.id}</span>
+                        ${formatTaskText(task.task)}
+                      </div>
+
+                      <div class="answer-input-wrapper">
+                        <input
+                          type="text"
+                          class="answer-input"
+                          data-task-id="${taskId}"
+                          placeholder="Deine Antwort..."
+                          value="${savedAnswer.answer}"
+                          ${meta.subject === 'Mathe' ? 'inputmode="decimal"' : ''}
+                        >
+
+                        ${meta.subject === 'Mathe' ? `
+                          <textarea
+                            class="work-input"
+                            data-task-id="${taskId}"
+                            placeholder="Rechenweg (optional)..."
+                          >${savedAnswer.work}</textarea>
+                        ` : ''}
+
+                        <button class="check-btn" onclick="checkTask('${taskId}')">Prüfen</button>
+                        <div class="feedback-container" id="feedback-${taskId}"></div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== Check Logic =====
+    function checkTask(taskId) {
+      const data = JSON.parse(sessionStorage.getItem('rebeccapedia_worksheet'));
+      const meta = data.meta;
+
+      // Find task
+      let task = null;
+      for (const level of data.levels) {
+        task = level.tasks.find(t => t.id === taskId);
+        if (task) break;
+      }
+
+      if (!task) return;
+
+      const input = document.querySelector(`input.answer-input[data-task-id="${taskId}"]`);
+      const feedbackEl = document.getElementById(`feedback-${taskId}`);
+      const userAnswer = input.value.trim();
+
+      if (!userAnswer) {
+        feedbackEl.innerHTML = '<div class="feedback incorrect">⚠️ Bitte gib eine Antwort ein.</div>';
+        return;
+      }
+
+      // Get attempts from localStorage
+      const savedKey = `rebeccapedia_${meta.topic_id}_${meta.created_at}`;
+      const saved = JSON.parse(localStorage.getItem(savedKey) || '{}');
+      const taskData = saved[taskId] || { attempts: 0, correct: false };
+
+      // Normalize and check answer (for Mathe)
+      let isCorrect = false;
+      let expectedAnswer = null;
+
+      if (meta.subject === 'Mathe') {
+        // Try to extract answer from solution or use answer_value
+        if (task.answer_value !== undefined) {
+          expectedAnswer = parseFloat(task.answer_value);
+        } else {
+          // Try to parse from solution text
+          const solutionMatch = task.solution.match(/=\s*([+-]?\d+(?:[,.]\d+)?)/);
+          if (solutionMatch) {
+            expectedAnswer = parseFloat(solutionMatch[1].replace(',', '.'));
+          } else {
+            // Try to evaluate task if it's a simple arithmetic expression
+            const taskMatch = task.task.match(/(\d+)\s*([+\-×÷x:*/])\s*(\d+)/);
+            if (taskMatch) {
+              const [, a, op, b] = taskMatch;
+              const num1 = parseFloat(a);
+              const num2 = parseFloat(b);
+              switch (op) {
+                case '+': expectedAnswer = num1 + num2; break;
+                case '-': expectedAnswer = num1 - num2; break;
+                case '×': case 'x': case '*': expectedAnswer = num1 * num2; break;
+                case '÷': case ':': case '/': expectedAnswer = num1 / num2; break;
+              }
+            }
+          }
+        }
+
+        const userNum = parseFloat(userAnswer.replace(',', '.'));
+        if (expectedAnswer !== null && !isNaN(userNum)) {
+          isCorrect = Math.abs(userNum - expectedAnswer) < 0.01;
+        }
+      } else {
+        // For non-math subjects, simple string comparison
+        isCorrect = userAnswer.toLowerCase() === task.solution.toLowerCase();
+      }
+
+      taskData.attempts++;
+      taskData.answer = userAnswer;
+
+      if (isCorrect) {
+        input.classList.add('correct');
+        input.classList.remove('incorrect');
+        feedbackEl.innerHTML = '<div class="feedback correct">✓ Richtig! Gut gemacht!</div>';
+        taskData.correct = true;
+      } else {
+        input.classList.add('incorrect');
+        input.classList.remove('correct');
+
+        if (taskData.attempts === 1) {
+          feedbackEl.innerHTML = '<div class="feedback incorrect">✗ Noch mal versuchen!</div>';
+        } else if (taskData.attempts === 2 && task.hints && task.hints.length > 0) {
+          feedbackEl.innerHTML = `<div class="feedback hint">💡 Tipp: ${task.hints[0]}</div>`;
+        } else if (taskData.attempts >= 3) {
+          feedbackEl.innerHTML = `<div class="feedback incorrect">✗ Die Lösung ist: <strong>${task.solution}</strong></div>`;
+        } else {
+          feedbackEl.innerHTML = '<div class="feedback incorrect">✗ Noch mal versuchen!</div>';
+        }
+      }
+
+      // Save to localStorage
+      saved[taskId] = taskData;
+      localStorage.setItem(savedKey, JSON.stringify(saved));
+    }
+
+    function checkAllTasks() {
+      const data = JSON.parse(sessionStorage.getItem('rebeccapedia_worksheet'));
+      if (!data) return;
+
+      let checked = 0;
+      for (const level of data.levels) {
+        for (const task of level.tasks) {
+          const input = document.querySelector(`input.answer-input[data-task-id="${task.id}"]`);
+          if (input && input.value.trim()) {
+            checkTask(task.id);
+            checked++;
+          }
+        }
+      }
+
+      if (checked === 0) {
+        alert('Bitte fülle mindestens eine Aufgabe aus.');
+      }
+    }
+
+    function resetAllTasks() {
+      if (!confirm('Möchtest du wirklich alle Antworten zurücksetzen?')) return;
+
+      const data = JSON.parse(sessionStorage.getItem('rebeccapedia_worksheet'));
+      if (!data) return;
+
+      const savedKey = `rebeccapedia_${data.meta.topic_id}_${data.meta.created_at}`;
+      localStorage.removeItem(savedKey);
+
+      // Clear all inputs and feedback
+      document.querySelectorAll('.answer-input, .work-input').forEach(el => {
+        el.value = '';
+        el.classList.remove('correct', 'incorrect');
+      });
+      document.querySelectorAll('.feedback-container').forEach(el => {
+        el.innerHTML = '';
+      });
+    }
+
+    // Auto-save on input
+    function setupAutoSave() {
+      document.addEventListener('input', (e) => {
+        if (e.target.classList.contains('answer-input') || e.target.classList.contains('work-input')) {
+          const data = JSON.parse(sessionStorage.getItem('rebeccapedia_worksheet'));
+          if (!data) return;
+
+          const taskId = e.target.dataset.taskId;
+          const savedKey = `rebeccapedia_${data.meta.topic_id}_${data.meta.created_at}`;
+          const saved = JSON.parse(localStorage.getItem(savedKey) || '{}');
+
+          if (!saved[taskId]) saved[taskId] = { attempts: 0, correct: false };
+
+          if (e.target.classList.contains('answer-input')) {
+            saved[taskId].answer = e.target.value;
+          } else if (e.target.classList.contains('work-input')) {
+            saved[taskId].work = e.target.value;
+          }
+
+          localStorage.setItem(savedKey, JSON.stringify(saved));
+        }
+      });
+    }
+
     // ===== Initialize =====
-    render();
+    // Check if we're in interactive mode
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'interactive') {
+      document.getElementById('app').innerHTML = renderInteractiveWorksheet();
+      setupAutoSave();
+    } else {
+      render();
+    }
   </script>
 </body>
 </html>
