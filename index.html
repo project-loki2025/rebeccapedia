@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rebeccademie - Grundschule Klasse 3</title>
+  <style>
+    /* ===== CSS Reset & Base ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --border: #d2d2d7;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --success: #34c759;
+      --error: #ff3b30;
+      --warning: #ff9500;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ===== Layout ===== */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .breadcrumb button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    .breadcrumb button:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      color: var(--text-secondary);
+    }
+
+    /* ===== Cards Grid ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .card-grid.subjects {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .topic-card {
+      text-align: left;
+    }
+
+    .topic-card .topic-id {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    /* ===== Form Elements ===== */
+    .form-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.375rem;
+      color: var(--text);
+    }
+
+    .form-group .hint {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.625rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    input[type="number"] {
+      width: 80px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.875rem;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .inline-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .inline-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .inline-options label:hover {
+      background: #e8e8ed;
+    }
+
+    .inline-options input[type="radio"] {
+      accent-color: var(--accent);
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      font-family: inherit;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #e8e8ed;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Prompt Output ===== */
+    .prompt-output {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    /* ===== Messages ===== */
+    .message {
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .message-error {
+      background: #fff0f0;
+      color: var(--error);
+      border: 1px solid #ffcdd2;
+    }
+
+    .message-success {
+      background: #f0fff4;
+      color: #2e7d32;
+      border: 1px solid #c8e6c9;
+    }
+
+    .message-info {
+      background: #f0f7ff;
+      color: #1565c0;
+      border: 1px solid #bbdefb;
+    }
+
+    /* ===== Worksheet Rendering ===== */
+    .worksheet {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .worksheet-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .worksheet-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .worksheet-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .name-date-line {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--bg);
+      font-size: 0.9rem;
+    }
+
+    .name-date-line span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .name-date-line .line {
+      flex: 1;
+      border-bottom: 1px solid var(--text);
+      min-width: 120px;
+    }
+
+    .worksheet-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .worksheet-tab {
+      padding: 0.75rem 1.25rem;
+      background: none;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .worksheet-tab:hover {
+      color: var(--text);
+    }
+
+    .worksheet-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .worksheet-content {
+      padding: 1.5rem;
+    }
+
+    .level-section {
+      margin-bottom: 2rem;
+    }
+
+    .level-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .level-section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .task-item {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .task-number {
+      font-weight: 600;
+      color: var(--accent);
+      margin-right: 0.5rem;
+    }
+
+    .task-text {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .task-hints {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: #fff9e6;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+    }
+
+    .task-hints strong {
+      color: var(--warning);
+    }
+
+    .answer-space {
+      margin-top: 0.75rem;
+      min-height: 60px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      background: #fafafa;
+    }
+
+    /* Solutions */
+    .solution-item {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+    }
+
+    .solution-item .task-id {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .solution-item .solution-text {
+      margin-top: 0.25rem;
+      color: var(--success);
+      font-weight: 500;
+    }
+
+    .solution-item .solution-steps {
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Mini Test */
+    .mini-test-header {
+      background: var(--accent);
+      color: white;
+      padding: 1rem 1.5rem;
+      margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    }
+
+    .mini-test-header h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .mini-test-header p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .points-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+
+    /* Teacher Notes */
+    .teacher-notes {
+      background: #f0f7ff;
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .teacher-notes h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #1565c0;
+    }
+
+    .teacher-notes ul {
+      margin-left: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .teacher-notes li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* ===== Print Styles ===== */
+    @media print {
+      body {
+        background: white;
+        font-size: 11pt;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .worksheet {
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .worksheet-header {
+        padding: 1cm 0;
+      }
+
+      .worksheet-header h2 {
+        font-size: 18pt;
+      }
+
+      .name-date-line {
+        background: none;
+        padding: 0.5cm 0;
+      }
+
+      .worksheet-tabs {
+        display: none;
+      }
+
+      .tab-content {
+        display: block !important;
+      }
+
+      .worksheet-content {
+        padding: 0.5cm 0;
+      }
+
+      .level-section {
+        page-break-inside: avoid;
+        margin-bottom: 1cm;
+      }
+
+      .level-section h3 {
+        font-size: 14pt;
+        border-bottom-width: 1pt;
+      }
+
+      .task-item {
+        page-break-inside: avoid;
+        margin-bottom: 0.5cm;
+        padding-bottom: 0.5cm;
+      }
+
+      .answer-space {
+        min-height: 2cm;
+        border: 1px solid #999;
+      }
+
+      .solution-item {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+      }
+
+      .mini-test-header {
+        background: #333 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .teacher-notes {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+      }
+
+      /* Page breaks */
+      .page-break {
+        page-break-before: always;
+      }
+
+      @page {
+        size: A4;
+        margin: 1.5cm;
+      }
+    }
+
+    /* ===== Utility ===== */
+    .hidden {
+      display: none !important;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      .card-grid.subjects {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .worksheet-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .name-date-line {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Rebeccademie</h1>
+      <p>Grundschule Klasse 3</p>
+    </header>
+
+    <main id="app">
+      <!-- Content rendered by JavaScript -->
+    </main>
+  </div>
+
+  <script>
+    // ===== Topic Packs Data (embedded) =====
+    const TOPIC_PACKS = {
+      "grade": 3,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M31",
+              "title": "Addition & Subtraktion bis 1000",
+              "short_goal": "Sicheres Rechnen im Zahlenraum bis 1000 mit und ohne Zehner-/Hunderteruebergang",
+              "task_types": ["Kopfrechnen", "Schriftliche Rechnung", "Ergaenzungsaufgaben", "Zahlenraetsel"],
+              "constraints": { "number_range": "1-1000", "operations": ["+", "-"], "with_carry": true },
+              "level_rules": {
+                "L1": "Ohne Uebergang, runde Zahlen (z.B. 300+200, 450-50)",
+                "L2": "Mit einem Uebergang (z.B. 347+58, 523-67)",
+                "L3": "Mit mehreren Uebergaengen, Platzhalter, Umkehraufgaben"
+              },
+              "default_counts": { "tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6 }
+            },
+            {
+              "topic_id": "M32",
+              "title": "Einmaleins & Division",
+              "short_goal": "Beherrschen der Kernaufgaben des kleinen Einmaleins und der Umkehraufgaben (Division)",
+              "task_types": ["Mal-Aufgaben", "Geteilt-Aufgaben", "Reihen ergaenzen", "Tauschaufgaben"],
+              "constraints": { "tables": "1-10", "operations": ["x", ":"] },
+              "level_rules": {
+                "L1": "Kernaufgaben der 2er, 5er, 10er Reihe",
+                "L2": "Alle Reihen, gemischte Aufgaben",
+                "L3": "Umkehraufgaben, Platzhalter, Kettenaufgaben"
+              },
+              "default_counts": { "tasks_per_level": 8, "word_problems": 2, "mini_test_tasks": 6 }
+            },
+            {
+              "topic_id": "M33",
+              "title": "Sachaufgaben",
+              "short_goal": "Textaufgaben verstehen, passende Rechenart waehlen, Antwort formulieren",
+              "task_types": ["Einkaufen", "Verteilen", "Vergleichen", "Zeit berechnen"],
+              "constraints": { "number_range": "1-1000", "operations": ["+", "-", "x", ":"], "context": "Alltagssituationen" },
+              "level_rules": {
+                "L1": "Eine Rechenoperation, einfache Zahlen",
+                "L2": "Zwei Schritte, ueberfluessige Infos erkennen",
+                "L3": "Mehrere Schritte, eigene Frage formulieren"
+              },
+              "default_counts": { "tasks_per_level": 4, "word_problems": 4, "mini_test_tasks": 4 }
+            },
+            {
+              "topic_id": "M34",
+              "title": "Groessen & Einheiten",
+              "short_goal": "Laengen (m/cm), Gewichte (kg/g), Zeiten (h/min) umrechnen und vergleichen",
+              "task_types": ["Umrechnen", "Vergleichen", "Messen", "Rechnen mit Groessen"],
+              "constraints": { "units_length": ["m", "cm", "mm"], "units_weight": ["kg", "g"], "units_time": ["h", "min"] },
+              "level_rules": {
+                "L1": "Einfache Umrechnungen ohne Rechnung",
+                "L2": "Umrechnen + einfaches Rechnen mit Groessen",
+                "L3": "Gemischte Einheiten, Sachaufgaben"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 2, "mini_test_tasks": 6 }
+            },
+            {
+              "topic_id": "M35",
+              "title": "Geometrie Grundlagen",
+              "short_goal": "Symmetrie erkennen, Rechteck/Quadrat unterscheiden, Umfang berechnen",
+              "task_types": ["Symmetrieachsen finden", "Formen benennen", "Umfang berechnen", "Figuren zeichnen"],
+              "constraints": { "shapes": ["Rechteck", "Quadrat", "Dreieck"], "symmetry": true, "perimeter": "einfache Zahlen" },
+              "level_rules": {
+                "L1": "Formen erkennen, Symmetrieachse einzeichnen",
+                "L2": "Umfang bei gegebenen Seitenlaengen",
+                "L3": "Fehlende Seite berechnen, kombinierte Aufgaben"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 1, "mini_test_tasks": 5 }
+            }
+          ]
+        },
+        {
+          "id": "deutsch",
+          "name": "Deutsch",
+          "icon": "Abc",
+          "topics": [
+            {
+              "topic_id": "D31",
+              "title": "Wortarten erkennen",
+              "short_goal": "Nomen, Verben und Adjektive sicher erkennen und unterscheiden",
+              "task_types": ["Woerter zuordnen", "Unterstreichen", "Tabelle ausfuellen", "Saetze bilden"],
+              "constraints": { "word_types": ["Nomen", "Verb", "Adjektiv"], "vocabulary": "altersgerecht Klasse 3" },
+              "level_rules": {
+                "L1": "Eindeutige Woerter in Einzelsaetzen",
+                "L2": "Woerter im Kontext, Nomen-Signale (Artikel)",
+                "L3": "Nominalisierte Verben/Adjektive, schwierige Faelle"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 6 }
+            },
+            {
+              "topic_id": "D32",
+              "title": "Gross- und Kleinschreibung",
+              "short_goal": "Nomen und Satzanfaenge grossschreiben, Verben/Adjektive klein",
+              "task_types": ["Fehler finden", "Richtig abschreiben", "Lueckentext", "Begruenden"],
+              "constraints": { "focus": ["Satzanfang", "Nomen", "Anredeformen"], "text_length": "kurze Saetze" },
+              "level_rules": {
+                "L1": "Einfache Saetze mit klaren Nomen",
+                "L2": "Zusammengesetzte Nomen, nach Doppelpunkt",
+                "L3": "Nominalisierungen (das Lesen), Fehlertext korrigieren"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 6 }
+            },
+            {
+              "topic_id": "D33",
+              "title": "Satzzeichen",
+              "short_goal": "Punkt, Fragezeichen, Ausrufezeichen und einfache Kommas richtig setzen",
+              "task_types": ["Satzzeichen einsetzen", "Satzart bestimmen", "Aufzaehlung schreiben", "Fehler korrigieren"],
+              "constraints": { "punctuation": [".", "?", "!", ","], "comma_use": "nur Aufzaehlungen" },
+              "level_rules": {
+                "L1": "Satzende-Zeichen in einfachen Saetzen",
+                "L2": "Satzart erkennen und passendes Zeichen waehlen",
+                "L3": "Komma bei Aufzaehlungen, gemischte Uebungen"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 6 }
+            },
+            {
+              "topic_id": "D34",
+              "title": "Leseverstehen",
+              "short_goal": "Kurze Texte lesen, W-Fragen beantworten, Kernaussage erfassen",
+              "task_types": ["W-Fragen", "Richtig/Falsch", "Reihenfolge ordnen", "Ueberschrift finden"],
+              "constraints": { "text_length": "80-150 Woerter", "text_types": ["Erzaehlung", "Sachtext kurz"], "questions": "W-Fragen" },
+              "level_rules": {
+                "L1": "Informationen direkt im Text finden",
+                "L2": "Einfache Schlussfolgerungen ziehen",
+                "L3": "Kernaussage formulieren, Meinung begruenden"
+              },
+              "default_counts": { "tasks_per_level": 4, "word_problems": 0, "mini_test_tasks": 5 }
+            },
+            {
+              "topic_id": "D35",
+              "title": "Bildergeschichte schreiben",
+              "short_goal": "Zu Bildern eine zusammenhaengende Geschichte mit Einleitung, Hauptteil, Schluss schreiben",
+              "task_types": ["Bilder beschreiben", "Satzstarter nutzen", "Geschichte schreiben", "Ueberarbeiten"],
+              "constraints": { "structure": ["Einleitung", "Hauptteil", "Schluss"], "sentence_starters": true, "length": "6-10 Saetze" },
+              "level_rules": {
+                "L1": "Bilder beschreiben mit Satzstartern",
+                "L2": "Zusammenhaengende Geschichte mit Zeitwoertern",
+                "L3": "Woertliche Rede einbauen, Gefuehle beschreiben"
+              },
+              "default_counts": { "tasks_per_level": 3, "word_problems": 0, "mini_test_tasks": 4 }
+            }
+          ]
+        },
+        {
+          "id": "englisch",
+          "name": "Englisch",
+          "icon": "EN",
+          "topics": [
+            {
+              "topic_id": "E31",
+              "title": "Vocabulary",
+              "short_goal": "Wortschatz zu Schule, Familie und Tieren festigen",
+              "task_types": ["Bild-Wort-Zuordnung", "Memory-Paare", "Lueckentext", "Woerter schreiben"],
+              "constraints": { "word_fields": ["school", "family", "animals"], "word_count": "10-15 Woerter pro Feld" },
+              "level_rules": {
+                "L1": "Bild-Wort-Zuordnung, Woerter abschreiben",
+                "L2": "Woerter aus dem Gedaechtnis schreiben",
+                "L3": "Woerter in einfachen Saetzen verwenden"
+              },
+              "default_counts": { "tasks_per_level": 6, "word_problems": 0, "mini_test_tasks": 6 },
+              "sub_options": ["school", "family", "animals"]
+            },
+            {
+              "topic_id": "E32",
+              "title": "Satzmuster: I like / I have / I can",
+              "short_goal": "Einfache Aussagesaetze mit I like, I have, I can bilden",
+              "task_types": ["Saetze vervollstaendigen", "Saetze bilden", "Ueber sich schreiben", "Partnerinterview"],
+              "constraints": { "patterns": ["I like + noun/verb-ing", "I have + noun", "I can + verb"], "vocabulary": "bekannter Wortschatz" },
+              "level_rules": {
+                "L1": "Saetze mit Hilfe vervollstaendigen",
+                "L2": "Eigene Saetze nach Vorbild bilden",
+                "L3": "Mehrere Saetze ueber sich selbst schreiben"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5 }
+            },
+            {
+              "topic_id": "E33",
+              "title": "Questions",
+              "short_goal": "Einfache Fragen stellen und beantworten (What, Do you, Can you)",
+              "task_types": ["Fragen zuordnen", "Antworten schreiben", "Dialog ergaenzen", "Fragen stellen"],
+              "constraints": { "question_types": ["What's this?", "Do you like...?", "Can you...?"], "answers": "Yes/No und kurze Antworten" },
+              "level_rules": {
+                "L1": "Frage-Antwort-Paare zuordnen",
+                "L2": "Passende Antworten selbst schreiben",
+                "L3": "Eigene Fragen formulieren"
+              },
+              "default_counts": { "tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5 }
+            },
+            {
+              "topic_id": "E34",
+              "title": "Mini-Reading",
+              "short_goal": "Kurze englische Texte/Dialoge verstehen und Fragen beantworten",
+              "task_types": ["Lesen + Fragen", "True/False", "Woerter finden", "Reihenfolge"],
+              "constraints": { "text_length": "40-80 Woerter", "text_types": ["Dialog", "kurze Beschreibung"], "vocabulary": "bekannt + 3-5 neue Woerter" },
+              "level_rules": {
+                "L1": "Informationen direkt im Text finden",
+                "L2": "Einfache Fragen auf Englisch beantworten",
+                "L3": "Kurze Zusammenfassung/Meinung schreiben"
+              },
+              "default_counts": { "tasks_per_level": 3, "word_problems": 0, "mini_test_tasks": 4 }
+            },
+            {
+              "topic_id": "E35",
+              "title": "Mini-Writing",
+              "short_goal": "Kurze Texte ueber sich selbst schreiben (My day, My pet)",
+              "task_types": ["Lueckentext", "Satzstarter nutzen", "Eigenen Text schreiben", "Fehler finden"],
+              "constraints": { "themes": ["My day", "My pet", "My family"], "sentence_starters": true, "length": "4-6 Saetze" },
+              "level_rules": {
+                "L1": "Lueckentext mit vorgegebenen Woertern",
+                "L2": "Mit Satzstartern eigene Saetze schreiben",
+                "L3": "Freier Text mit wenig Hilfe"
+              },
+              "default_counts": { "tasks_per_level": 3, "word_problems": 0, "mini_test_tasks": 4 }
+            }
+          ]
+        }
+      ]
+    };
+
+    // ===== App State =====
+    const state = {
+      currentView: 'subjects',
+      selectedSubject: null,
+      selectedTopic: null,
+      topicPacks: TOPIC_PACKS,
+      generatedPrompt: null,
+      importedData: null,
+      options: {
+        level: 'all',
+        tasksPerLevel: 6,
+        wordProblems: 2,
+        miniTest: true,
+        tone: 'freundlich',
+        vocabField: 'school'
+      }
+    };
+
+    // ===== Render Functions =====
+    function render() {
+      const app = document.getElementById('app');
+
+      switch (state.currentView) {
+        case 'subjects':
+          app.innerHTML = renderSubjects();
+          break;
+        case 'topics':
+          app.innerHTML = renderTopics();
+          break;
+        case 'options':
+          app.innerHTML = renderOptions();
+          break;
+        case 'prompt':
+          app.innerHTML = renderPrompt();
+          break;
+        case 'import':
+          app.innerHTML = renderImport();
+          break;
+        case 'worksheet':
+          app.innerHTML = renderWorksheet();
+          break;
+      }
+
+      attachEventListeners();
+    }
+
+    function renderSubjects() {
+      const subjects = state.topicPacks.subjects;
+      return `
+        <div class="card-grid subjects">
+          ${subjects.map(s => `
+            <div class="card" data-subject="${s.id}">
+              <span class="card-icon">${s.icon}</span>
+              <h3>${s.name}</h3>
+              <p>5 Themen</p>
+            </div>
+          `).join('')}
+        </div>
+        <p class="text-center mt-3" style="color: var(--text-secondary); font-size: 0.9rem;">
+          Datenschutz: Keine personenbezogenen Daten eingeben. Alles bleibt lokal.
+        </p>
+      `;
+    }
+
+    function renderTopics() {
+      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
+      return `
+        <div class="breadcrumb no-print">
+          <button onclick="navigate('subjects')">Start</button>
+          <span>/</span>
+          <span>${subject.name}</span>
+        </div>
+        <h2 class="mb-2">${subject.name} - Themen</h2>
+        <div class="card-grid">
+          ${subject.topics.map(t => `
+            <div class="card topic-card" data-topic="${t.topic_id}">
+              <div class="topic-id">${t.topic_id}</div>
+              <h3>${t.title}</h3>
+              <p>${t.short_goal}</p>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderOptions() {
+      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
+      const topic = subject.topics.find(t => t.topic_id === state.selectedTopic);
+      const defaults = topic.default_counts;
+
+      // Update defaults
+      state.options.tasksPerLevel = defaults.tasks_per_level;
+      state.options.wordProblems = defaults.word_problems;
+
+      const hasVocabOptions = topic.sub_options && topic.sub_options.length > 0;
+
+      return `
+        <div class="breadcrumb no-print">
+          <button onclick="navigate('subjects')">Start</button>
+          <span>/</span>
+          <button onclick="navigate('topics')">${subject.name}</button>
+          <span>/</span>
+          <span>${topic.title}</span>
+        </div>
+
+        <h2 class="mb-2">${topic.title}</h2>
+        <p class="mb-3" style="color: var(--text-secondary);">${topic.short_goal}</p>
+
+        <div class="form-section">
+          <h3>Einstellungen</h3>
+
+          ${hasVocabOptions ? `
+            <div class="form-group">
+              <label>Wortfeld (Vocabulary)</label>
+              <div class="inline-options">
+                ${topic.sub_options.map(opt => `
+                  <label>
+                    <input type="radio" name="vocabField" value="${opt}" ${state.options.vocabField === opt ? 'checked' : ''}>
+                    ${opt.charAt(0).toUpperCase() + opt.slice(1)}
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="form-group">
+            <label>Schwierigkeitsstufe</label>
+            <div class="inline-options">
+              <label>
+                <input type="radio" name="level" value="all" ${state.options.level === 'all' ? 'checked' : ''}>
+                Alle Level (1-3)
+              </label>
+              <label>
+                <input type="radio" name="level" value="1" ${state.options.level === '1' ? 'checked' : ''}>
+                Nur Level 1
+              </label>
+              <label>
+                <input type="radio" name="level" value="2" ${state.options.level === '2' ? 'checked' : ''}>
+                Nur Level 2
+              </label>
+              <label>
+                <input type="radio" name="level" value="3" ${state.options.level === '3' ? 'checked' : ''}>
+                Nur Level 3
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tasksPerLevel">Aufgaben pro Level</label>
+            <input type="number" id="tasksPerLevel" min="2" max="12" value="${defaults.tasks_per_level}">
+          </div>
+
+          ${defaults.word_problems > 0 ? `
+            <div class="form-group">
+              <label for="wordProblems">Sachaufgaben (insg.)</label>
+              <input type="number" id="wordProblems" min="0" max="6" value="${defaults.word_problems}">
+            </div>
+          ` : ''}
+
+          <div class="form-group">
+            <label class="checkbox-group">
+              <input type="checkbox" id="miniTest" ${state.options.miniTest ? 'checked' : ''}>
+              Mini-Test generieren (${defaults.mini_test_tasks} Aufgaben)
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>Sprachstil</label>
+            <div class="inline-options">
+              <label>
+                <input type="radio" name="tone" value="freundlich" ${state.options.tone === 'freundlich' ? 'checked' : ''}>
+                Freundlich
+              </label>
+              <label>
+                <input type="radio" name="tone" value="sachlich" ${state.options.tone === 'sachlich' ? 'checked' : ''}>
+                Sachlich
+              </label>
+              <label>
+                <input type="radio" name="tone" value="motivierend" ${state.options.tone === 'motivierend' ? 'checked' : ''}>
+                Motivierend
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="generatePrompt()">Prompt generieren</button>
+          <button class="btn btn-secondary" onclick="navigate('topics')">Zuruck</button>
+        </div>
+      `;
+    }
+
+    function renderPrompt() {
+      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
+      const topic = subject.topics.find(t => t.topic_id === state.selectedTopic);
+
+      return `
+        <div class="breadcrumb no-print">
+          <button onclick="navigate('subjects')">Start</button>
+          <span>/</span>
+          <button onclick="navigate('topics')">${subject.name}</button>
+          <span>/</span>
+          <button onclick="navigate('options')">${topic.title}</button>
+          <span>/</span>
+          <span>Prompt</span>
+        </div>
+
+        <div class="form-section">
+          <h3>1. Prompt kopieren</h3>
+          <p class="mb-2" style="color: var(--text-secondary); font-size: 0.9rem;">
+            Kopiere diesen Prompt und fuge ihn in ChatGPT oder Claude ein.
+          </p>
+          <div class="prompt-output" id="promptOutput">${escapeHtml(state.generatedPrompt)}</div>
+          <div class="btn-group mt-2">
+            <button class="btn btn-primary" onclick="copyPrompt()">Prompt kopieren</button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>2. JSON-Antwort einfugen</h3>
+          <p class="mb-2" style="color: var(--text-secondary); font-size: 0.9rem;">
+            Fuge die JSON-Antwort von ChatGPT/Claude hier ein.
+          </p>
+          <div class="form-group">
+            <textarea id="jsonInput" placeholder='{"meta": {...}, "levels": [...], ...}'></textarea>
+          </div>
+          <div id="validationMessage"></div>
+          <div class="btn-group">
+            <button class="btn btn-success" onclick="importJSON()">Importieren</button>
+            <button class="btn btn-secondary" onclick="navigate('options')">Zuruck</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderImport() {
+      return renderPrompt();
+    }
+
+    function renderWorksheet() {
+      const data = state.importedData;
+      if (!data) {
+        navigate('prompt');
+        return '';
+      }
+
+      const meta = data.meta;
+      const levels = data.levels;
+      const miniTest = data.mini_test;
+      const teacherNotes = data.teacher_notes;
+
+      return `
+        <div class="breadcrumb no-print">
+          <button onclick="navigate('subjects')">Start</button>
+          <span>/</span>
+          <span>${meta.subject} - ${meta.topic_title}</span>
+        </div>
+
+        <div class="btn-group no-print mb-3">
+          <button class="btn btn-primary" onclick="window.print()">Drucken / PDF</button>
+          <button class="btn btn-secondary" onclick="navigate('prompt')">Zuruck</button>
+          <button class="btn btn-secondary" onclick="resetApp()">Neues Arbeitsblatt</button>
+        </div>
+
+        <div class="worksheet">
+          <div class="worksheet-header">
+            <h2>${meta.topic_title}</h2>
+            <div class="worksheet-meta">
+              <span>Fach: ${meta.subject}</span>
+              <span>Klasse: ${meta.grade}</span>
+              <span>Erstellt: ${meta.created_at}</span>
+            </div>
+          </div>
+
+          <div class="name-date-line">
+            <span>Name: <span class="line"></span></span>
+            <span>Datum: <span class="line"></span></span>
+          </div>
+
+          <div class="worksheet-tabs no-print">
+            <button class="worksheet-tab active" data-tab="tasks">Aufgaben</button>
+            <button class="worksheet-tab" data-tab="solutions">Losungen</button>
+            ${miniTest && miniTest.enabled ? '<button class="worksheet-tab" data-tab="test">Mini-Test</button>' : ''}
+            ${miniTest && miniTest.enabled ? '<button class="worksheet-tab" data-tab="test-solutions">Test-Losungen</button>' : ''}
+            ${teacherNotes ? '<button class="worksheet-tab" data-tab="teacher">Lehrerhinweise</button>' : ''}
+          </div>
+
+          <div class="worksheet-content">
+            <!-- Tasks Tab -->
+            <div class="tab-content" id="tab-tasks">
+              ${levels.map(level => `
+                <div class="level-section">
+                  <h3>${level.name}</h3>
+                  ${level.tasks.map(task => `
+                    <div class="task-item">
+                      <div class="task-text">
+                        <span class="task-number">${task.id}</span>
+                        ${formatTaskText(task.task)}
+                      </div>
+                      ${task.hints && task.hints.length > 0 ? `
+                        <div class="task-hints">
+                          <strong>Tipp:</strong> ${task.hints.join(' / ')}
+                        </div>
+                      ` : ''}
+                      <div class="answer-space"></div>
+                    </div>
+                  `).join('')}
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Solutions Tab -->
+            <div class="tab-content hidden" id="tab-solutions">
+              <div class="page-break"></div>
+              <h3 class="mb-2">Losungen</h3>
+              ${levels.map(level => `
+                <div class="level-section">
+                  <h3>${level.name}</h3>
+                  ${level.tasks.map(task => `
+                    <div class="solution-item">
+                      <div class="task-id">${task.id}</div>
+                      <div class="solution-text">${formatTaskText(task.solution)}</div>
+                      ${task.steps ? `<div class="solution-steps">Rechenweg: ${task.steps}</div>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Mini-Test Tab -->
+            ${miniTest && miniTest.enabled ? `
+              <div class="tab-content hidden" id="tab-test">
+                <div class="page-break"></div>
+                <div class="mini-test-header">
+                  <h3>Mini-Test <span class="points-badge">${miniTest.total_points} Punkte</span></h3>
+                  <p>${miniTest.instructions || 'Bearbeite alle Aufgaben. Viel Erfolg!'}</p>
+                </div>
+                ${miniTest.tasks.map(task => `
+                  <div class="task-item">
+                    <div class="task-text">
+                      <span class="task-number">${task.id}</span>
+                      ${formatTaskText(task.task)}
+                      <span class="points-badge">${task.points}P</span>
+                    </div>
+                    <div class="answer-space"></div>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="tab-content hidden" id="tab-test-solutions">
+                <div class="page-break"></div>
+                <h3 class="mb-2">Mini-Test Losungen</h3>
+                ${miniTest.tasks.map(task => `
+                  <div class="solution-item">
+                    <div class="task-id">${task.id} (${task.points}P)</div>
+                    <div class="solution-text">${formatTaskText(task.solution)}</div>
+                  </div>
+                `).join('')}
+                <p class="mt-2"><strong>Gesamtpunktzahl: ${miniTest.total_points} Punkte</strong></p>
+              </div>
+            ` : ''}
+
+            <!-- Teacher Notes Tab -->
+            ${teacherNotes ? `
+              <div class="tab-content hidden" id="tab-teacher">
+                <div class="teacher-notes">
+                  <h4>Unterrichtshinweise</h4>
+                  ${teacherNotes.lesson_flow ? `
+                    <p><strong>Ablauf:</strong></p>
+                    <ul>${teacherNotes.lesson_flow.map(l => `<li>${l}</li>`).join('')}</ul>
+                  ` : ''}
+                  ${teacherNotes.common_mistakes ? `
+                    <p class="mt-1"><strong>Typische Fehler:</strong></p>
+                    <ul>${teacherNotes.common_mistakes.map(m => `<li>${m}</li>`).join('')}</ul>
+                  ` : ''}
+                  ${teacherNotes.differentiation ? `
+                    <p class="mt-1"><strong>Differenzierung:</strong></p>
+                    <ul>${teacherNotes.differentiation.map(d => `<li>${d}</li>`).join('')}</ul>
+                  ` : ''}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== Prompt Generation =====
+    function generatePrompt() {
+      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
+      const topic = subject.topics.find(t => t.topic_id === state.selectedTopic);
+
+      // Read current options from form
+      const level = document.querySelector('input[name="level"]:checked')?.value || 'all';
+      const tasksPerLevel = parseInt(document.getElementById('tasksPerLevel')?.value) || topic.default_counts.tasks_per_level;
+      const wordProblems = parseInt(document.getElementById('wordProblems')?.value) || 0;
+      const miniTest = document.getElementById('miniTest')?.checked ?? true;
+      const tone = document.querySelector('input[name="tone"]:checked')?.value || 'freundlich';
+      const vocabField = document.querySelector('input[name="vocabField"]:checked')?.value || 'school';
+
+      state.options = { level, tasksPerLevel, wordProblems, miniTest, tone, vocabField };
+
+      const levelText = level === 'all'
+        ? 'Erstelle 3 Level (Level 1, Level 2, Level 3) mit je ' + tasksPerLevel + ' Aufgaben.'
+        : `Erstelle nur Level ${level} mit ${tasksPerLevel} Aufgaben.`;
+
+      const levelRulesText = level === 'all'
+        ? `Level-Regeln:\n- Level 1: ${topic.level_rules.L1}\n- Level 2: ${topic.level_rules.L2}\n- Level 3: ${topic.level_rules.L3}`
+        : `Level-Regel fur Level ${level}: ${topic.level_rules['L' + level]}`;
+
+      const vocabText = topic.sub_options ? `\nWortfeld: ${vocabField}` : '';
+
+      const prompt = `Du bist ein Grundschullehrer und erstellst ein Arbeitsblatt fur Klasse 3.
+
+THEMA: ${topic.title}
+FACH: ${subject.name}
+LERNZIEL: ${topic.short_goal}
+${vocabText}
+
+AUFGABENTYPEN: ${topic.task_types.join(', ')}
+
+EINSCHRANKUNGEN:
+${JSON.stringify(topic.constraints, null, 2)}
+
+${levelRulesText}
+
+ANFORDERUNGEN:
+- ${levelText}
+- ${wordProblems > 0 ? `Insgesamt ${wordProblems} Sachaufgaben (verteilt uber die Level).` : 'Keine Sachaufgaben erforderlich.'}
+- ${miniTest ? `Mini-Test mit ${topic.default_counts.mini_test_tasks} Aufgaben erstellen.` : 'Keinen Mini-Test erstellen.'}
+- Sprachstil: ${tone}, kindgerecht, klar formuliert.
+- Alle Aufgaben mussen mathematisch/sprachlich korrekt sein.
+- IDs fortlaufend: L1-01, L1-02, ... fur Level 1; L2-01, L2-02, ... fur Level 2; usw.
+- Mini-Test IDs: T-01, T-02, ...
+
+WICHTIG: Antworte AUSSCHLIESSLICH mit validem JSON. Kein Text davor oder danach. Kein Markdown-Codeblock.
+
+JSON-SCHEMA (exakt einhalten):
+{
+  "meta": {
+    "tool": "Rebeccademie",
+    "grade": 3,
+    "subject": "${subject.name}",
+    "topic_id": "${topic.topic_id}",
+    "topic_title": "${topic.title}",
+    "created_at": "YYYY-MM-DD",
+    "level_count": ${level === 'all' ? 3 : 1}
+  },
+  "levels": [
+    {
+      "name": "Level 1",
+      "tasks": [
+        {
+          "id": "L1-01",
+          "task": "Aufgabentext hier",
+          "hints": ["Optionaler Tipp 1", "Optionaler Tipp 2"],
+          "solution": "Losung hier",
+          "steps": "Kurzer Rechenweg/Erklarung"
+        }
+      ]
+    }
+  ],
+  "mini_test": {
+    "enabled": ${miniTest},
+    "instructions": "Bearbeite alle Aufgaben sorgfaltig.",
+    "tasks": [
+      {"id": "T-01", "task": "...", "solution": "...", "points": 2}
+    ],
+    "total_points": 12
+  },
+  "teacher_notes": {
+    "lesson_flow": ["Einstieg: ...", "Hauptteil: ...", "Abschluss: ..."],
+    "common_mistakes": ["Typischer Fehler 1", "Typischer Fehler 2"],
+    "differentiation": ["Fur schwachere Schuler: ...", "Fur starkere Schuler: ..."]
+  }
+}
+
+Beginne jetzt mit dem JSON:`;
+
+      state.generatedPrompt = prompt;
+      navigate('prompt');
+    }
+
+    // ===== JSON Validation =====
+    function validateJSON(data) {
+      const errors = [];
+
+      // Check meta
+      if (!data.meta) {
+        errors.push('Feld "meta" fehlt.');
+      } else {
+        if (!data.meta.tool) errors.push('meta.tool fehlt.');
+        if (!data.meta.grade) errors.push('meta.grade fehlt.');
+        if (!data.meta.subject) errors.push('meta.subject fehlt.');
+        if (!data.meta.topic_id) errors.push('meta.topic_id fehlt.');
+        if (!data.meta.topic_title) errors.push('meta.topic_title fehlt.');
+      }
+
+      // Check levels
+      if (!data.levels || !Array.isArray(data.levels)) {
+        errors.push('Feld "levels" fehlt oder ist kein Array.');
+      } else {
+        if (data.levels.length === 0) {
+          errors.push('Mindestens 1 Level erforderlich.');
+        }
+
+        const allIds = new Set();
+        data.levels.forEach((level, i) => {
+          if (!level.name) errors.push(`Level ${i + 1}: "name" fehlt.`);
+          if (!level.tasks || !Array.isArray(level.tasks)) {
+            errors.push(`Level ${i + 1}: "tasks" fehlt oder ist kein Array.`);
+          } else {
+            level.tasks.forEach((task, j) => {
+              if (!task.id) errors.push(`Level ${i + 1}, Aufgabe ${j + 1}: "id" fehlt.`);
+              if (!task.task) errors.push(`Level ${i + 1}, Aufgabe ${j + 1}: "task" fehlt.`);
+              if (!task.solution) errors.push(`Level ${i + 1}, Aufgabe ${j + 1}: "solution" fehlt.`);
+
+              if (task.id && allIds.has(task.id)) {
+                errors.push(`Doppelte ID: ${task.id}`);
+              }
+              allIds.add(task.id);
+            });
+          }
+        });
+      }
+
+      // Check mini_test
+      if (data.mini_test && data.mini_test.enabled) {
+        if (!data.mini_test.tasks || !Array.isArray(data.mini_test.tasks)) {
+          errors.push('mini_test.tasks fehlt oder ist kein Array.');
+        } else {
+          let totalPoints = 0;
+          data.mini_test.tasks.forEach((task, i) => {
+            if (!task.id) errors.push(`Mini-Test Aufgabe ${i + 1}: "id" fehlt.`);
+            if (!task.task) errors.push(`Mini-Test Aufgabe ${i + 1}: "task" fehlt.`);
+            if (!task.solution) errors.push(`Mini-Test Aufgabe ${i + 1}: "solution" fehlt.`);
+            if (typeof task.points !== 'number') errors.push(`Mini-Test Aufgabe ${i + 1}: "points" fehlt oder ist keine Zahl.`);
+            totalPoints += task.points || 0;
+          });
+
+          if (data.mini_test.total_points !== totalPoints) {
+            errors.push(`mini_test.total_points (${data.mini_test.total_points}) stimmt nicht mit Summe (${totalPoints}) uberein.`);
+          }
+        }
+      }
+
+      return errors;
+    }
+
+    function importJSON() {
+      const input = document.getElementById('jsonInput').value.trim();
+      const msgContainer = document.getElementById('validationMessage');
+
+      if (!input) {
+        msgContainer.innerHTML = '<div class="message message-error">Bitte JSON einfugen.</div>';
+        return;
+      }
+
+      let data;
+      try {
+        // Try to extract JSON from markdown code block if present
+        let jsonStr = input;
+        const codeBlockMatch = input.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (codeBlockMatch) {
+          jsonStr = codeBlockMatch[1].trim();
+        }
+        data = JSON.parse(jsonStr);
+      } catch (e) {
+        msgContainer.innerHTML = `<div class="message message-error">
+          <strong>JSON-Syntaxfehler:</strong> ${e.message}<br>
+          <small>Tipp: Prufe auf fehlende Kommas, Anfuhrungszeichen oder Klammern.</small>
+        </div>`;
+        return;
+      }
+
+      const errors = validateJSON(data);
+      if (errors.length > 0) {
+        msgContainer.innerHTML = `<div class="message message-error">
+          <strong>Validierungsfehler:</strong>
+          <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+            ${errors.map(e => `<li>${e}</li>`).join('')}
+          </ul>
+        </div>`;
+        return;
+      }
+
+      state.importedData = data;
+      msgContainer.innerHTML = '<div class="message message-success">JSON erfolgreich validiert!</div>';
+
+      setTimeout(() => {
+        navigate('worksheet');
+      }, 500);
+    }
+
+    // ===== Helper Functions =====
+    function navigate(view) {
+      state.currentView = view;
+      render();
+      window.scrollTo(0, 0);
+    }
+
+    function copyPrompt() {
+      navigator.clipboard.writeText(state.generatedPrompt).then(() => {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = 'Kopiert!';
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-success');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('btn-success');
+          btn.classList.add('btn-primary');
+        }, 2000);
+      });
+    }
+
+    function resetApp() {
+      state.currentView = 'subjects';
+      state.selectedSubject = null;
+      state.selectedTopic = null;
+      state.generatedPrompt = null;
+      state.importedData = null;
+      render();
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function formatTaskText(text) {
+      if (!text) return '';
+      // Convert line breaks and preserve formatting
+      return escapeHtml(text)
+        .replace(/\n/g, '<br>')
+        .replace(/(\d+)\s*[×x\*]\s*(\d+)/g, '$1 × $2')
+        .replace(/(\d+)\s*[÷:\/]\s*(\d+)/g, '$1 ÷ $2');
+    }
+
+    function attachEventListeners() {
+      // Subject cards
+      document.querySelectorAll('.card[data-subject]').forEach(card => {
+        card.addEventListener('click', () => {
+          state.selectedSubject = card.dataset.subject;
+          navigate('topics');
+        });
+      });
+
+      // Topic cards
+      document.querySelectorAll('.card[data-topic]').forEach(card => {
+        card.addEventListener('click', () => {
+          state.selectedTopic = card.dataset.topic;
+          navigate('options');
+        });
+      });
+
+      // Worksheet tabs
+      document.querySelectorAll('.worksheet-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabId = tab.dataset.tab;
+
+          // Update active tab
+          document.querySelectorAll('.worksheet-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          // Show corresponding content
+          document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+          });
+          document.getElementById(`tab-${tabId}`)?.classList.remove('hidden');
+        });
+      });
+    }
+
+    // ===== Initialize =====
+    render();
+  </script>
+</body>
+</html>
