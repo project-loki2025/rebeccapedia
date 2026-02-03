@@ -2,8 +2,13 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rebeccapedia - Grundschule Klasse 3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0071e3">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Rebeccapedia">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>Rebeccapedia - Klassen 1-10</title>
   <style>
     /* ===== CSS Reset & Base ===== */
     *, *::before, *::after {
@@ -973,8 +978,24 @@
   </div>
 
   <script>
-    // ===== Topic Packs Data (embedded) =====
-    const TOPIC_PACKS = {
+    // ===== Topic Packs Data (loaded from JSON) =====
+    let TOPIC_PACKS = null;
+
+    // Load topic-packs.json dynamically
+    async function loadTopicPacks() {
+      try {
+        const response = await fetch('./topic-packs.json');
+        TOPIC_PACKS = await response.json();
+        console.log('Loaded topic packs for grades:', TOPIC_PACKS.grades.map(g => g.grade));
+      } catch (error) {
+        console.warn('Failed to load topic-packs.json, using legacy fallback:', error);
+        // Fallback: wrap legacy Grade 3 data into new structure
+        TOPIC_PACKS = { grades: [LEGACY_TOPIC_PACKS_GRADE_3] };
+      }
+    }
+
+    // Legacy embedded fallback (Klasse 3 only - for offline)
+    const LEGACY_TOPIC_PACKS_GRADE_3 = {
       "grade": 3,
       "subjects": [
         {
@@ -1199,10 +1220,10 @@
 
     // ===== App State =====
     const state = {
-      currentView: 'subjects',
+      currentView: 'loading',  // Start with loading, then go to 'grades'
+      selectedGrade: 3,        // Default grade
       selectedSubject: null,
       selectedTopic: null,
-      topicPacks: TOPIC_PACKS,
       generatedPrompt: null,
       importedData: null,
       options: {
@@ -1215,11 +1236,26 @@
       }
     };
 
+    // Helper: Get current grade data from loaded topic packs
+    function getCurrentGradeData() {
+      if (!TOPIC_PACKS || !TOPIC_PACKS.grades) return null;
+      return TOPIC_PACKS.grades.find(g => g.grade === state.selectedGrade);
+    }
+
     // ===== Render Functions =====
     function render() {
       const app = document.getElementById('app');
 
+      // Loading state
+      if (state.currentView === 'loading') {
+        app.innerHTML = '<div style="text-align: center; padding: 4rem; font-size: 1.2rem; color: var(--text-secondary);">Lädt Themen...</div>';
+        return;
+      }
+
       switch (state.currentView) {
+        case 'grades':
+          app.innerHTML = renderGrades();
+          break;
         case 'subjects':
           app.innerHTML = renderSubjects();
           break;
@@ -1243,15 +1279,47 @@
       attachEventListeners();
     }
 
-    function renderSubjects() {
-      const subjects = state.topicPacks.subjects;
+    function renderGrades() {
+      if (!TOPIC_PACKS || !TOPIC_PACKS.grades) {
+        return '<div class="message message-error">Keine Klassenstufen verfügbar.</div>';
+      }
+
       return `
+        <h2 class="mb-2 text-center">Klassenstufe wählen</h2>
+        <p class="text-center mb-3" style="color: var(--text-secondary);">Wähle eine Klassenstufe von 1 bis 10</p>
+
+        <div class="card-grid" style="max-width: 800px; margin: 0 auto;">
+          ${TOPIC_PACKS.grades.map(gradeData => `
+            <div class="card" data-grade="${gradeData.grade}" style="cursor: pointer;">
+              <span class="card-icon" style="font-size: 3rem; font-weight: 700;">${gradeData.grade}</span>
+              <h3>Klasse ${gradeData.grade}</h3>
+              <p>${gradeData.subjects.length} Fächer</p>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderSubjects() {
+      const gradeData = getCurrentGradeData();
+      if (!gradeData) {
+        return '<div class="message message-error">Keine Fächer für diese Klassenstufe gefunden.</div>';
+      }
+
+      const subjects = gradeData.subjects;
+      return `
+        <div class="breadcrumb no-print">
+          <button onclick="navigate('grades')">← Klasse ${state.selectedGrade}</button>
+        </div>
+
+        <h2 class="mb-2 text-center">Klasse ${state.selectedGrade} - Fach wählen</h2>
+
         <div class="card-grid subjects">
           ${subjects.map(s => `
             <div class="card" data-subject="${s.id}">
               <span class="card-icon">${s.icon}</span>
               <h3>${s.name}</h3>
-              <p>5 Themen</p>
+              <p>${s.topics.length} Themen</p>
             </div>
           `).join('')}
         </div>
@@ -1262,12 +1330,17 @@
     }
 
     function renderTopics() {
-      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
+      const gradeData = getCurrentGradeData();
+      if (!gradeData) return '<div class="message message-error">Fehler beim Laden der Themen.</div>';
+
+      const subject = gradeData.subjects.find(s => s.id === state.selectedSubject);
+      if (!subject) return '<div class="message message-error">Fach nicht gefunden.</div>';
+
       return `
         <div class="breadcrumb no-print">
-          <button onclick="navigate('subjects')">Start</button>
+          <button onclick="navigate('grades')">Klasse ${state.selectedGrade}</button>
           <span>/</span>
-          <span>${subject.name}</span>
+          <button onclick="navigate('subjects')">${subject.name}</button>
         </div>
         <h2 class="mb-2">${subject.name} - Themen</h2>
         <div class="card-grid">
@@ -1283,8 +1356,15 @@
     }
 
     function renderOptions() {
-      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
+      const gradeData = getCurrentGradeData();
+      if (!gradeData) return '<div class="message message-error">Fehler.</div>';
+
+      const subject = gradeData.subjects.find(s => s.id === state.selectedSubject);
+      if (!subject) return '<div class="message message-error">Fach nicht gefunden.</div>';
+
       const topic = subject.topics.find(t => t.topic_id === state.selectedTopic);
+      if (!topic) return '<div class="message message-error">Thema nicht gefunden.</div>';
+
       const defaults = topic.default_counts;
 
       // Update defaults
@@ -1295,11 +1375,11 @@
 
       return `
         <div class="breadcrumb no-print">
-          <button onclick="navigate('subjects')">Start</button>
+          <button onclick="navigate('grades')">Klasse ${state.selectedGrade}</button>
           <span>/</span>
-          <button onclick="navigate('topics')">${subject.name}</button>
+          <button onclick="navigate('subjects')">${subject.name}</button>
           <span>/</span>
-          <span>${topic.title}</span>
+          <button onclick="navigate('topics')">${topic.title}</button>
         </div>
 
         <h2 class="mb-2">${topic.title}</h2>
@@ -1390,16 +1470,20 @@
     }
 
     function renderPrompt() {
-      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
-      const topic = subject.topics.find(t => t.topic_id === state.selectedTopic);
+      const gradeData = getCurrentGradeData();
+      if (!gradeData) return '<div class="message message-error">Fehler.</div>';
+
+      const subject = gradeData.subjects.find(s => s.id === state.selectedSubject);
+      const topic = subject?.topics.find(t => t.topic_id === state.selectedTopic);
+      if (!subject || !topic) return '<div class="message message-error">Thema nicht gefunden.</div>';
 
       return `
         <div class="breadcrumb no-print">
-          <button onclick="navigate('subjects')">Start</button>
+          <button onclick="navigate('grades')">Klasse ${state.selectedGrade}</button>
           <span>/</span>
-          <button onclick="navigate('topics')">${subject.name}</button>
+          <button onclick="navigate('subjects')">${subject.name}</button>
           <span>/</span>
-          <button onclick="navigate('options')">${topic.title}</button>
+          <button onclick="navigate('topics')">${topic.title}</button>
           <span>/</span>
           <span>Prompt</span>
         </div>
@@ -1587,8 +1671,18 @@
 
     // ===== Prompt Generation =====
     function generatePrompt() {
-      const subject = state.topicPacks.subjects.find(s => s.id === state.selectedSubject);
-      const topic = subject.topics.find(t => t.topic_id === state.selectedTopic);
+      const gradeData = getCurrentGradeData();
+      if (!gradeData) {
+        alert('Fehler: Keine Klassendaten verfügbar.');
+        return;
+      }
+
+      const subject = gradeData.subjects.find(s => s.id === state.selectedSubject);
+      const topic = subject?.topics.find(t => t.topic_id === state.selectedTopic);
+      if (!subject || !topic) {
+        alert('Fehler: Thema nicht gefunden.');
+        return;
+      }
 
       // Read current options from form
       const level = document.querySelector('input[name="level"]:checked')?.value || 'all';
@@ -1610,7 +1704,7 @@
 
       const vocabText = topic.sub_options ? `\nWortfeld: ${vocabField}` : '';
 
-      const prompt = `Du bist ein Grundschullehrer und erstellst ein Arbeitsblatt fur Klasse 3.
+      const prompt = `Du bist ein Lehrer und erstellst ein Arbeitsblatt fur Klasse ${state.selectedGrade}.
 
 THEMA: ${topic.title}
 FACH: ${subject.name}
@@ -1640,7 +1734,7 @@ JSON-SCHEMA (exakt einhalten):
 {
   "meta": {
     "tool": "Rebeccapedia",
-    "grade": 3,
+    "grade": ${state.selectedGrade},
     "subject": "${subject.name}",
     "topic_id": "${topic.topic_id}",
     "topic_title": "${topic.title}",
@@ -1791,11 +1885,18 @@ Beginne jetzt mit dem JSON:`;
       }
 
       state.importedData = data;
-      msgContainer.innerHTML = '<div class="message message-success">JSON erfolgreich validiert!</div>';
+
+      // Check for legacy tool name
+      let message = '<div class="message message-success">JSON erfolgreich validiert!';
+      if (data.meta.tool === 'Rebeccademie') {
+        message += '<br><small style="color: var(--warning); font-weight: 500;">ℹ️ Hinweis: Altes Tool-Feld "Rebeccademie" erkannt. Wird weiterhin unterstützt, bitte aber künftig "Rebeccapedia" verwenden.</small>';
+      }
+      message += '</div>';
+      msgContainer.innerHTML = message;
 
       setTimeout(() => {
         navigate('worksheet');
-      }, 500);
+      }, 800);
     }
 
     // ===== Helper Functions =====
@@ -1845,6 +1946,14 @@ Beginne jetzt mit dem JSON:`;
     }
 
     function attachEventListeners() {
+      // Grade cards
+      document.querySelectorAll('.card[data-grade]').forEach(card => {
+        card.addEventListener('click', () => {
+          state.selectedGrade = parseInt(card.dataset.grade);
+          navigate('subjects');
+        });
+      });
+
       // Subject cards
       document.querySelectorAll('.card[data-subject]').forEach(card => {
         card.addEventListener('click', () => {
@@ -2231,13 +2340,31 @@ Beginne jetzt mit dem JSON:`;
     }
 
     // ===== Initialize =====
-    // Check if we're in interactive mode
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('mode') === 'interactive') {
-      document.getElementById('app').innerHTML = renderInteractiveWorksheet();
-      setupAutoSave();
-    } else {
+    async function initializeApp() {
+      // Check if we're in interactive mode
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mode') === 'interactive') {
+        document.getElementById('app').innerHTML = renderInteractiveWorksheet();
+        setupAutoSave();
+        return;
+      }
+
+      // Load topic packs
+      await loadTopicPacks();
+
+      // Start with grades view
+      state.currentView = 'grades';
       render();
+    }
+
+    // Start app when page loads
+    initializeApp();
+
+    // Register Service Worker for PWA/offline support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => console.log('[SW] Registered:', reg.scope))
+        .catch((err) => console.log('[SW] Registration failed:', err));
     }
   </script>
 </body>

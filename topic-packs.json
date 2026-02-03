@@ -1,333 +1,588 @@
 {
-  "grade": 3,
-  "subjects": [
+  "grades": [
     {
-      "id": "mathe",
-      "name": "Mathe",
-      "icon": "123",
-      "topics": [
+      "grade": 1,
+      "subjects": [
         {
-          "topic_id": "M31",
-          "title": "Addition & Subtraktion bis 1000",
-          "short_goal": "Sicheres Rechnen im Zahlenraum bis 1000 mit und ohne Zehner-/Hunderterübergang",
-          "task_types": ["Kopfrechnen", "Schriftliche Rechnung", "Ergänzungsaufgaben", "Zahlenrätsel"],
-          "constraints": {
-            "number_range": "1–1000",
-            "operations": ["+", "-"],
-            "with_carry": true
-          },
-          "level_rules": {
-            "L1": "Ohne Übergang, runde Zahlen (z.B. 300+200, 450-50)",
-            "L2": "Mit einem Übergang (z.B. 347+58, 523-67)",
-            "L3": "Mit mehreren Übergängen, Platzhalter, Umkehraufgaben"
-          },
-          "default_counts": {
-            "tasks_per_level": 6,
-            "word_problems": 2,
-            "mini_test_tasks": 6
-          }
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M11",
+              "title": "Zahlen bis 20",
+              "short_goal": "Zahlen bis 20 lesen, schreiben und vergleichen",
+              "task_types": ["Zählen", "Nachbarzahlen", "Vergleichen"],
+              "constraints": {"number_range": "1-20"},
+              "level_rules": {
+                "L1": "Zahlen bis 10",
+                "L2": "Zahlen bis 20",
+                "L3": "Vergleichen und ordnen"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 1, "mini_test_tasks": 5}
+            }
+          ]
         },
         {
-          "topic_id": "M32",
-          "title": "Einmaleins & Division",
-          "short_goal": "Beherrschen der Kernaufgaben des kleinen Einmaleins und der Umkehraufgaben (Division)",
-          "task_types": ["Mal-Aufgaben", "Geteilt-Aufgaben", "Reihen ergänzen", "Tauschaufgaben"],
-          "constraints": {
-            "tables": "1–10",
-            "operations": ["×", "÷"]
-          },
-          "level_rules": {
-            "L1": "Kernaufgaben der 2er, 5er, 10er Reihe",
-            "L2": "Alle Reihen, gemischte Aufgaben",
-            "L3": "Umkehraufgaben, Platzhalter, Kettenaufgaben"
-          },
-          "default_counts": {
-            "tasks_per_level": 8,
-            "word_problems": 2,
-            "mini_test_tasks": 6
-          }
-        },
-        {
-          "topic_id": "M33",
-          "title": "Sachaufgaben",
-          "short_goal": "Textaufgaben verstehen, passende Rechenart wählen, Antwort formulieren",
-          "task_types": ["Einkaufen", "Verteilen", "Vergleichen", "Zeit berechnen"],
-          "constraints": {
-            "number_range": "1–1000",
-            "operations": ["+", "-", "×", "÷"],
-            "context": "Alltagssituationen"
-          },
-          "level_rules": {
-            "L1": "Eine Rechenoperation, einfache Zahlen",
-            "L2": "Zwei Schritte, überflüssige Infos erkennen",
-            "L3": "Mehrere Schritte, eigene Frage formulieren"
-          },
-          "default_counts": {
-            "tasks_per_level": 4,
-            "word_problems": 4,
-            "mini_test_tasks": 4
-          }
-        },
-        {
-          "topic_id": "M34",
-          "title": "Größen & Einheiten",
-          "short_goal": "Längen (m/cm), Gewichte (kg/g), Zeiten (h/min) umrechnen und vergleichen",
-          "task_types": ["Umrechnen", "Vergleichen", "Messen", "Rechnen mit Größen"],
-          "constraints": {
-            "units_length": ["m", "cm", "mm"],
-            "units_weight": ["kg", "g"],
-            "units_time": ["h", "min"]
-          },
-          "level_rules": {
-            "L1": "Einfache Umrechnungen ohne Rechnung",
-            "L2": "Umrechnen + einfaches Rechnen mit Größen",
-            "L3": "Gemischte Einheiten, Sachaufgaben"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 2,
-            "mini_test_tasks": 6
-          }
-        },
-        {
-          "topic_id": "M35",
-          "title": "Geometrie Grundlagen",
-          "short_goal": "Symmetrie erkennen, Rechteck/Quadrat unterscheiden, Umfang berechnen",
-          "task_types": ["Symmetrieachsen finden", "Formen benennen", "Umfang berechnen", "Figuren zeichnen"],
-          "constraints": {
-            "shapes": ["Rechteck", "Quadrat", "Dreieck"],
-            "symmetry": true,
-            "perimeter": "einfache Zahlen"
-          },
-          "level_rules": {
-            "L1": "Formen erkennen, Symmetrieachse einzeichnen",
-            "L2": "Umfang bei gegebenen Seitenlängen",
-            "L3": "Fehlende Seite berechnen, kombinierte Aufgaben"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 1,
-            "mini_test_tasks": 5
-          }
+          "id": "deutsch",
+          "name": "Deutsch",
+          "icon": "Abc",
+          "topics": [
+            {
+              "topic_id": "D11",
+              "title": "Buchstaben und Laute",
+              "short_goal": "Buchstaben erkennen und Laute zuordnen",
+              "task_types": ["Buchstaben schreiben", "Anlaute hören"],
+              "constraints": {"focus": "Grundbuchstaben"},
+              "level_rules": {
+                "L1": "Vokale",
+                "L2": "Konsonanten",
+                "L3": "Gemischte Übungen"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5}
+            }
+          ]
         }
       ]
     },
     {
-      "id": "deutsch",
-      "name": "Deutsch",
-      "icon": "Abc",
-      "topics": [
+      "grade": 2,
+      "subjects": [
         {
-          "topic_id": "D31",
-          "title": "Wortarten erkennen",
-          "short_goal": "Nomen, Verben und Adjektive sicher erkennen und unterscheiden",
-          "task_types": ["Wörter zuordnen", "Unterstreichen", "Tabelle ausfüllen", "Sätze bilden"],
-          "constraints": {
-            "word_types": ["Nomen", "Verb", "Adjektiv"],
-            "vocabulary": "altersgerecht Klasse 3"
-          },
-          "level_rules": {
-            "L1": "Eindeutige Wörter in Einzelsätzen",
-            "L2": "Wörter im Kontext, Nomen-Signale (Artikel)",
-            "L3": "Nominalisierte Verben/Adjektive, schwierige Fälle"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 0,
-            "mini_test_tasks": 6
-          }
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M21",
+              "title": "Addition & Subtraktion bis 100",
+              "short_goal": "Sicheres Rechnen im Zahlenraum bis 100",
+              "task_types": ["Kopfrechnen", "Platzhalteraufgaben"],
+              "constraints": {"number_range": "1-100", "operations": ["+", "-"]},
+              "level_rules": {
+                "L1": "Ohne Zehnerübergang",
+                "L2": "Mit Zehnerübergang",
+                "L3": "Gemischte Aufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            }
+          ]
         },
         {
-          "topic_id": "D32",
-          "title": "Groß- und Kleinschreibung",
-          "short_goal": "Nomen und Satzanfänge großschreiben, Verben/Adjektive klein",
-          "task_types": ["Fehler finden", "Richtig abschreiben", "Lückentext", "Begründen"],
-          "constraints": {
-            "focus": ["Satzanfang", "Nomen", "Anredeformen"],
-            "text_length": "kurze Sätze"
-          },
-          "level_rules": {
-            "L1": "Einfache Sätze mit klaren Nomen",
-            "L2": "Zusammengesetzte Nomen, nach Doppelpunkt",
-            "L3": "Nominalisierungen (das Lesen), Fehlertext korrigieren"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 0,
-            "mini_test_tasks": 6
-          }
-        },
-        {
-          "topic_id": "D33",
-          "title": "Satzzeichen",
-          "short_goal": "Punkt, Fragezeichen, Ausrufezeichen und einfache Kommas richtig setzen",
-          "task_types": ["Satzzeichen einsetzen", "Satzart bestimmen", "Aufzählung schreiben", "Fehler korrigieren"],
-          "constraints": {
-            "punctuation": [".", "?", "!", ","],
-            "comma_use": "nur Aufzählungen"
-          },
-          "level_rules": {
-            "L1": "Satzende-Zeichen in einfachen Sätzen",
-            "L2": "Satzart erkennen und passendes Zeichen wählen",
-            "L3": "Komma bei Aufzählungen, gemischte Übungen"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 0,
-            "mini_test_tasks": 6
-          }
-        },
-        {
-          "topic_id": "D34",
-          "title": "Leseverstehen",
-          "short_goal": "Kurze Texte lesen, W-Fragen beantworten, Kernaussage erfassen",
-          "task_types": ["W-Fragen", "Richtig/Falsch", "Reihenfolge ordnen", "Überschrift finden"],
-          "constraints": {
-            "text_length": "80–150 Wörter",
-            "text_types": ["Erzählung", "Sachtext kurz"],
-            "questions": "W-Fragen (Wer, Was, Wo, Wann, Warum)"
-          },
-          "level_rules": {
-            "L1": "Informationen direkt im Text finden",
-            "L2": "Einfache Schlussfolgerungen ziehen",
-            "L3": "Kernaussage formulieren, Meinung begründen"
-          },
-          "default_counts": {
-            "tasks_per_level": 4,
-            "word_problems": 0,
-            "mini_test_tasks": 5
-          }
-        },
-        {
-          "topic_id": "D35",
-          "title": "Bildergeschichte schreiben",
-          "short_goal": "Zu Bildern eine zusammenhängende Geschichte mit Einleitung, Hauptteil, Schluss schreiben",
-          "task_types": ["Bilder beschreiben", "Satzstarter nutzen", "Geschichte schreiben", "Überarbeiten"],
-          "constraints": {
-            "structure": ["Einleitung", "Hauptteil", "Schluss"],
-            "sentence_starters": true,
-            "length": "6–10 Sätze"
-          },
-          "level_rules": {
-            "L1": "Bilder beschreiben mit Satzstartern",
-            "L2": "Zusammenhängende Geschichte mit Zeitwörtern",
-            "L3": "Wörtliche Rede einbauen, Gefühle beschreiben"
-          },
-          "default_counts": {
-            "tasks_per_level": 3,
-            "word_problems": 0,
-            "mini_test_tasks": 4
-          }
+          "id": "deutsch",
+          "name": "Deutsch",
+          "icon": "Abc",
+          "topics": [
+            {
+              "topic_id": "D21",
+              "title": "Nomen erkennen",
+              "short_goal": "Nomen mit Artikel richtig verwenden",
+              "task_types": ["Nomen markieren", "Artikel zuordnen"],
+              "constraints": {"focus": "der, die, das"},
+              "level_rules": {
+                "L1": "Eindeutige Nomen",
+                "L2": "Nomen mit Artikel",
+                "L3": "Zusammengesetzte Nomen"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5}
+            }
+          ]
         }
       ]
     },
     {
-      "id": "englisch",
-      "name": "Englisch",
-      "icon": "EN",
-      "topics": [
+      "grade": 3,
+      "subjects": [
         {
-          "topic_id": "E31",
-          "title": "Vocabulary",
-          "short_goal": "Wortschatz zu Schule, Familie und Tieren festigen",
-          "task_types": ["Bild-Wort-Zuordnung", "Memory-Paare", "Lückentext", "Wörter schreiben"],
-          "constraints": {
-            "word_fields": ["school", "family", "animals"],
-            "word_count": "10–15 Wörter pro Feld"
-          },
-          "level_rules": {
-            "L1": "Bild-Wort-Zuordnung, Wörter abschreiben",
-            "L2": "Wörter aus dem Gedächtnis schreiben",
-            "L3": "Wörter in einfachen Sätzen verwenden"
-          },
-          "default_counts": {
-            "tasks_per_level": 6,
-            "word_problems": 0,
-            "mini_test_tasks": 6
-          },
-          "sub_options": ["school", "family", "animals"]
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M31",
+              "title": "Addition & Subtraktion bis 1000",
+              "short_goal": "Sicheres Rechnen im Zahlenraum bis 1000 mit und ohne Zehner-/Hunderterübergang",
+              "task_types": ["Kopfrechnen", "Schriftliche Rechnung", "Ergänzungsaufgaben", "Zahlenrätsel"],
+              "constraints": {"number_range": "1-1000", "operations": ["+", "-"], "with_carry": true},
+              "level_rules": {
+                "L1": "Ohne Übergang, runde Zahlen (z.B. 300+200, 450-50)",
+                "L2": "Mit einem Übergang (z.B. 347+58, 523-67)",
+                "L3": "Mit mehreren Übergängen, Platzhalter, Umkehraufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "M32",
+              "title": "Einmaleins & Division",
+              "short_goal": "Beherrschen der Kernaufgaben des kleinen Einmaleins und der Umkehraufgaben (Division)",
+              "task_types": ["Mal-Aufgaben", "Geteilt-Aufgaben", "Reihen ergänzen", "Tauschaufgaben"],
+              "constraints": {"tables": "1-10", "operations": ["×", "÷"]},
+              "level_rules": {
+                "L1": "Kernaufgaben der 2er, 5er, 10er Reihe",
+                "L2": "Alle Reihen, gemischte Aufgaben",
+                "L3": "Umkehraufgaben, Platzhalter, Kettenaufgaben"
+              },
+              "default_counts": {"tasks_per_level": 8, "word_problems": 2, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "M33",
+              "title": "Sachaufgaben",
+              "short_goal": "Textaufgaben verstehen, passende Rechenart wählen, Antwort formulieren",
+              "task_types": ["Einkaufen", "Verteilen", "Vergleichen", "Zeit berechnen"],
+              "constraints": {"number_range": "1-1000", "operations": ["+", "-", "×", "÷"], "context": "Alltagssituationen"},
+              "level_rules": {
+                "L1": "Eine Rechenoperation, einfache Zahlen",
+                "L2": "Zwei Schritte, überflüssige Infos erkennen",
+                "L3": "Mehrere Schritte, eigene Frage formulieren"
+              },
+              "default_counts": {"tasks_per_level": 4, "word_problems": 4, "mini_test_tasks": 4}
+            },
+            {
+              "topic_id": "M34",
+              "title": "Größen & Einheiten",
+              "short_goal": "Längen (m/cm), Gewichte (kg/g), Zeiten (h/min) umrechnen und vergleichen",
+              "task_types": ["Umrechnen", "Vergleichen", "Messen", "Rechnen mit Größen"],
+              "constraints": {"units_length": ["m", "cm", "mm"], "units_weight": ["kg", "g"], "units_time": ["h", "min"]},
+              "level_rules": {
+                "L1": "Einfache Umrechnungen ohne Rechnung",
+                "L2": "Umrechnen + einfaches Rechnen mit Größen",
+                "L3": "Gemischte Einheiten, Sachaufgaben"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 2, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "M35",
+              "title": "Geometrie Grundlagen",
+              "short_goal": "Symmetrie erkennen, Rechteck/Quadrat unterscheiden, Umfang berechnen",
+              "task_types": ["Symmetrieachsen finden", "Formen benennen", "Umfang berechnen", "Figuren zeichnen"],
+              "constraints": {"shapes": ["Rechteck", "Quadrat", "Dreieck"], "symmetry": true, "perimeter": "einfache Zahlen"},
+              "level_rules": {
+                "L1": "Formen erkennen, Symmetrieachse einzeichnen",
+                "L2": "Umfang bei gegebenen Seitenlängen",
+                "L3": "Fehlende Seite berechnen, kombinierte Aufgaben"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 1, "mini_test_tasks": 5}
+            }
+          ]
         },
         {
-          "topic_id": "E32",
-          "title": "Satzmuster: I like / I have / I can",
-          "short_goal": "Einfache Aussagesätze mit I like, I have, I can bilden",
-          "task_types": ["Sätze vervollständigen", "Sätze bilden", "Über sich schreiben", "Partnerinterview"],
-          "constraints": {
-            "patterns": ["I like + noun/verb-ing", "I have + noun", "I can + verb"],
-            "vocabulary": "bekannter Wortschatz"
-          },
-          "level_rules": {
-            "L1": "Sätze mit Hilfe vervollständigen",
-            "L2": "Eigene Sätze nach Vorbild bilden",
-            "L3": "Mehrere Sätze über sich selbst schreiben"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 0,
-            "mini_test_tasks": 5
-          }
+          "id": "deutsch",
+          "name": "Deutsch",
+          "icon": "Abc",
+          "topics": [
+            {
+              "topic_id": "D31",
+              "title": "Wortarten erkennen",
+              "short_goal": "Nomen, Verben und Adjektive sicher erkennen und unterscheiden",
+              "task_types": ["Wörter zuordnen", "Unterstreichen", "Tabelle ausfüllen", "Sätze bilden"],
+              "constraints": {"word_types": ["Nomen", "Verb", "Adjektiv"], "vocabulary": "altersgerecht Klasse 3"},
+              "level_rules": {
+                "L1": "Eindeutige Wörter in Einzelsätzen",
+                "L2": "Wörter im Kontext, Nomen-Signale (Artikel)",
+                "L3": "Nominalisierte Verben/Adjektive, schwierige Fälle"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "D32",
+              "title": "Groß- und Kleinschreibung",
+              "short_goal": "Nomen und Satzanfänge großschreiben, Verben/Adjektive klein",
+              "task_types": ["Fehler finden", "Richtig abschreiben", "Lückentext", "Begründen"],
+              "constraints": {"focus": ["Satzanfang", "Nomen", "Anredeformen"], "text_length": "kurze Sätze"},
+              "level_rules": {
+                "L1": "Einfache Sätze mit klaren Nomen",
+                "L2": "Zusammengesetzte Nomen, nach Doppelpunkt",
+                "L3": "Nominalisierungen (das Lesen), Fehlertext korrigieren"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "D33",
+              "title": "Satzzeichen",
+              "short_goal": "Punkt, Fragezeichen, Ausrufezeichen und einfache Kommas richtig setzen",
+              "task_types": ["Satzzeichen einsetzen", "Satzart bestimmen", "Aufzählung schreiben", "Fehler korrigieren"],
+              "constraints": {"punctuation": [".", "?", "!", ","], "comma_use": "nur Aufzählungen"},
+              "level_rules": {
+                "L1": "Satzende-Zeichen in einfachen Sätzen",
+                "L2": "Satzart erkennen und passendes Zeichen wählen",
+                "L3": "Komma bei Aufzählungen, gemischte Übungen"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "D34",
+              "title": "Leseverstehen",
+              "short_goal": "Kurze Texte lesen, W-Fragen beantworten, Kernaussage erfassen",
+              "task_types": ["W-Fragen", "Richtig/Falsch", "Reihenfolge ordnen", "Überschrift finden"],
+              "constraints": {"text_length": "80-150 Wörter", "text_types": ["Erzählung", "Sachtext kurz"], "questions": "W-Fragen"},
+              "level_rules": {
+                "L1": "Informationen direkt im Text finden",
+                "L2": "Einfache Schlussfolgerungen ziehen",
+                "L3": "Kernaussage formulieren, Meinung begründen"
+              },
+              "default_counts": {"tasks_per_level": 4, "word_problems": 0, "mini_test_tasks": 5}
+            },
+            {
+              "topic_id": "D35",
+              "title": "Bildergeschichte schreiben",
+              "short_goal": "Zu Bildern eine zusammenhängende Geschichte mit Einleitung, Hauptteil, Schluss schreiben",
+              "task_types": ["Bilder beschreiben", "Satzstarter nutzen", "Geschichte schreiben", "Überarbeiten"],
+              "constraints": {"structure": ["Einleitung", "Hauptteil", "Schluss"], "sentence_starters": true, "length": "6-10 Sätze"},
+              "level_rules": {
+                "L1": "Bilder beschreiben mit Satzstartern",
+                "L2": "Zusammenhängende Geschichte mit Zeitwörtern",
+                "L3": "Wörtliche Rede einbauen, Gefühle beschreiben"
+              },
+              "default_counts": {"tasks_per_level": 3, "word_problems": 0, "mini_test_tasks": 4}
+            }
+          ]
         },
         {
-          "topic_id": "E33",
-          "title": "Questions",
-          "short_goal": "Einfache Fragen stellen und beantworten (What, Do you, Can you)",
-          "task_types": ["Fragen zuordnen", "Antworten schreiben", "Dialog ergänzen", "Fragen stellen"],
-          "constraints": {
-            "question_types": ["What's this?", "Do you like...?", "Can you...?"],
-            "answers": "Yes/No und kurze Antworten"
-          },
-          "level_rules": {
-            "L1": "Frage-Antwort-Paare zuordnen",
-            "L2": "Passende Antworten selbst schreiben",
-            "L3": "Eigene Fragen formulieren"
-          },
-          "default_counts": {
-            "tasks_per_level": 5,
-            "word_problems": 0,
-            "mini_test_tasks": 5
-          }
+          "id": "englisch",
+          "name": "Englisch",
+          "icon": "EN",
+          "topics": [
+            {
+              "topic_id": "E31",
+              "title": "Vocabulary",
+              "short_goal": "Wortschatz zu Schule, Familie und Tieren festigen",
+              "task_types": ["Bild-Wort-Zuordnung", "Memory-Paare", "Lückentext", "Wörter schreiben"],
+              "constraints": {"word_fields": ["school", "family", "animals"], "word_count": "10-15 Wörter pro Feld"},
+              "level_rules": {
+                "L1": "Bild-Wort-Zuordnung, Wörter abschreiben",
+                "L2": "Wörter aus dem Gedächtnis schreiben",
+                "L3": "Wörter in einfachen Sätzen verwenden"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 0, "mini_test_tasks": 6},
+              "sub_options": ["school", "family", "animals"]
+            },
+            {
+              "topic_id": "E32",
+              "title": "Satzmuster: I like / I have / I can",
+              "short_goal": "Einfache Aussagesätze mit I like, I have, I can bilden",
+              "task_types": ["Sätze vervollständigen", "Sätze bilden", "Über sich schreiben", "Partnerinterview"],
+              "constraints": {"patterns": ["I like + noun/verb-ing", "I have + noun", "I can + verb"], "vocabulary": "bekannter Wortschatz"},
+              "level_rules": {
+                "L1": "Sätze mit Hilfe vervollständigen",
+                "L2": "Eigene Sätze nach Vorbild bilden",
+                "L3": "Mehrere Sätze über sich selbst schreiben"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5}
+            },
+            {
+              "topic_id": "E33",
+              "title": "Questions",
+              "short_goal": "Einfache Fragen stellen und beantworten (What, Do you, Can you)",
+              "task_types": ["Fragen zuordnen", "Antworten schreiben", "Dialog ergänzen", "Fragen stellen"],
+              "constraints": {"question_types": ["What's this?", "Do you like...?", "Can you...?"], "answers": "Yes/No und kurze Antworten"},
+              "level_rules": {
+                "L1": "Frage-Antwort-Paare zuordnen",
+                "L2": "Passende Antworten selbst schreiben",
+                "L3": "Eigene Fragen formulieren"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5}
+            },
+            {
+              "topic_id": "E34",
+              "title": "Mini-Reading",
+              "short_goal": "Kurze englische Texte/Dialoge verstehen und Fragen beantworten",
+              "task_types": ["Lesen + Fragen", "True/False", "Wörter finden", "Reihenfolge"],
+              "constraints": {"text_length": "40-80 Wörter", "text_types": ["Dialog", "kurze Beschreibung"], "vocabulary": "bekannt + 3-5 neue Wörter"},
+              "level_rules": {
+                "L1": "Informationen direkt im Text finden",
+                "L2": "Einfache Fragen auf Englisch beantworten",
+                "L3": "Kurze Zusammenfassung/Meinung schreiben"
+              },
+              "default_counts": {"tasks_per_level": 3, "word_problems": 0, "mini_test_tasks": 4}
+            },
+            {
+              "topic_id": "E35",
+              "title": "Mini-Writing",
+              "short_goal": "Kurze Texte über sich selbst schreiben (My day, My pet)",
+              "task_types": ["Lückentext", "Satzstarter nutzen", "Eigenen Text schreiben", "Fehler finden"],
+              "constraints": {"themes": ["My day", "My pet", "My family"], "sentence_starters": true, "length": "4-6 Sätze"},
+              "level_rules": {
+                "L1": "Lückentext mit vorgegebenen Wörtern",
+                "L2": "Mit Satzstartern eigene Sätze schreiben",
+                "L3": "Freier Text mit wenig Hilfe"
+              },
+              "default_counts": {"tasks_per_level": 3, "word_problems": 0, "mini_test_tasks": 4}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 4,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M41",
+              "title": "Großes Einmaleins",
+              "short_goal": "Multiplizieren und dividieren mit größeren Zahlen",
+              "task_types": ["Mal-Aufgaben", "Geteilt-Aufgaben"],
+              "constraints": {"number_range": "1-1000000", "operations": ["×", "÷"]},
+              "level_rules": {
+                "L1": "Einfache Aufgaben",
+                "L2": "Gemischte Aufgaben",
+                "L3": "Sachaufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            }
+          ]
         },
         {
-          "topic_id": "E34",
-          "title": "Mini-Reading",
-          "short_goal": "Kurze englische Texte/Dialoge verstehen und Fragen beantworten",
-          "task_types": ["Lesen + Fragen", "True/False", "Wörter finden", "Reihenfolge"],
-          "constraints": {
-            "text_length": "40–80 Wörter",
-            "text_types": ["Dialog", "kurze Beschreibung"],
-            "vocabulary": "bekannt + 3–5 neue Wörter mit Hilfe"
-          },
-          "level_rules": {
-            "L1": "Informationen direkt im Text finden",
-            "L2": "Einfache Fragen auf Englisch beantworten",
-            "L3": "Kurze Zusammenfassung/Meinung schreiben"
-          },
-          "default_counts": {
-            "tasks_per_level": 3,
-            "word_problems": 0,
-            "mini_test_tasks": 4
-          }
+          "id": "deutsch",
+          "name": "Deutsch",
+          "icon": "Abc",
+          "topics": [
+            {
+              "topic_id": "D41",
+              "title": "Satzglieder",
+              "short_goal": "Subjekt, Prädikat und Objekt erkennen",
+              "task_types": ["Satzglieder bestimmen", "Umstellproben"],
+              "constraints": {"focus": "Subjekt, Prädikat, Objekt"},
+              "level_rules": {
+                "L1": "Subjekt und Prädikat",
+                "L2": "Subjekt, Prädikat, Objekt",
+                "L3": "Komplexe Sätze"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 5,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M51",
+              "title": "Bruchrechnung Grundlagen",
+              "short_goal": "Brüche erkennen, erweitern, kürzen und vergleichen",
+              "task_types": ["Brüche darstellen", "Erweitern", "Kürzen", "Vergleichen"],
+              "constraints": {"denominators": "2-12", "operations": ["erweitern", "kürzen", "vergleichen"]},
+              "level_rules": {
+                "L1": "Einfache Brüche (Halbe, Viertel, Achtel)",
+                "L2": "Erweitern und Kürzen",
+                "L3": "Gemischte Übungen, Vergleichen"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "M52",
+              "title": "Dezimalzahlen",
+              "short_goal": "Dezimalzahlen lesen, schreiben und ordnen",
+              "task_types": ["Dezimalzahlen schreiben", "Vergleichen", "Runden"],
+              "constraints": {"decimal_places": "1-2", "operations": ["+", "-"]},
+              "level_rules": {
+                "L1": "Dezimalzahlen bis Zehntel",
+                "L2": "Dezimalzahlen bis Hundertstel",
+                "L3": "Runden und Vergleichen"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "M53",
+              "title": "Größen umrechnen",
+              "short_goal": "Längen, Gewichte, Zeiten und Volumen sicher umrechnen",
+              "task_types": ["Umrechnen", "Sachaufgaben"],
+              "constraints": {"units": ["m", "km", "kg", "t", "l", "ml"]},
+              "level_rules": {
+                "L1": "Einfache Umrechnungen",
+                "L2": "Gemischte Einheiten",
+                "L3": "Sachaufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 3, "mini_test_tasks": 6}
+            }
+          ]
         },
         {
-          "topic_id": "E35",
-          "title": "Mini-Writing",
-          "short_goal": "Kurze Texte über sich selbst schreiben (My day, My pet)",
-          "task_types": ["Lückentext", "Satzstarter nutzen", "Eigenen Text schreiben", "Fehler finden"],
-          "constraints": {
-            "themes": ["My day", "My pet", "My family"],
-            "sentence_starters": true,
-            "length": "4–6 Sätze"
-          },
-          "level_rules": {
-            "L1": "Lückentext mit vorgegebenen Wörtern",
-            "L2": "Mit Satzstartern eigene Sätze schreiben",
-            "L3": "Freier Text mit wenig Hilfe"
-          },
-          "default_counts": {
-            "tasks_per_level": 3,
-            "word_problems": 0,
-            "mini_test_tasks": 4
-          }
+          "id": "deutsch",
+          "name": "Deutsch",
+          "icon": "Abc",
+          "topics": [
+            {
+              "topic_id": "D51",
+              "title": "Zeitformen",
+              "short_goal": "Präsens, Präteritum und Perfekt sicher verwenden",
+              "task_types": ["Zeitformen erkennen", "Umformen", "Texte schreiben"],
+              "constraints": {"tenses": ["Präsens", "Präteritum", "Perfekt"], "verbs": "regelmäßige und unregelmäßige"},
+              "level_rules": {
+                "L1": "Präsens und Präteritum",
+                "L2": "Perfekt bilden",
+                "L3": "Gemischte Übungen"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 0, "mini_test_tasks": 6}
+            },
+            {
+              "topic_id": "D52",
+              "title": "Wortfamilien",
+              "short_goal": "Wortfamilien erkennen und Wortbausteine nutzen",
+              "task_types": ["Wortfamilien bilden", "Vorsilben", "Nachsilben"],
+              "constraints": {"focus": "Vor- und Nachsilben"},
+              "level_rules": {
+                "L1": "Einfache Wortfamilien",
+                "L2": "Vorsilben (ver-, vor-, ent-)",
+                "L3": "Nachsilben (-ung, -heit, -keit)"
+              },
+              "default_counts": {"tasks_per_level": 5, "word_problems": 0, "mini_test_tasks": 5}
+            }
+          ]
+        },
+        {
+          "id": "englisch",
+          "name": "Englisch",
+          "icon": "EN",
+          "topics": [
+            {
+              "topic_id": "E51",
+              "title": "Simple Present & Present Progressive",
+              "short_goal": "Gegenwart in zwei Formen ausdrücken",
+              "task_types": ["Formen bilden", "Verwendung unterscheiden"],
+              "constraints": {"tenses": ["Simple Present", "Present Progressive"]},
+              "level_rules": {
+                "L1": "Simple Present",
+                "L2": "Present Progressive",
+                "L3": "Unterscheidung der Verwendung"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 0, "mini_test_tasks": 6}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 6,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M61",
+              "title": "Brüche addieren und subtrahieren",
+              "short_goal": "Brüche mit gleichem und unterschiedlichem Nenner addieren/subtrahieren",
+              "task_types": ["Gleichnamige Brüche", "Ungleichnamige Brüche"],
+              "constraints": {"operations": ["+", "-"]},
+              "level_rules": {
+                "L1": "Gleichnamige Brüche",
+                "L2": "Ungleichnamige Brüche",
+                "L3": "Sachaufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 7,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M71",
+              "title": "Prozentrechnung",
+              "short_goal": "Grundwert, Prozentsatz und Prozentwert berechnen",
+              "task_types": ["Prozentsatz berechnen", "Grundwert berechnen", "Sachaufgaben"],
+              "constraints": {"focus": "Grundwert, Prozentsatz, Prozentwert"},
+              "level_rules": {
+                "L1": "Prozentsatz berechnen",
+                "L2": "Grundwert berechnen",
+                "L3": "Gemischte Aufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 3, "mini_test_tasks": 6}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 8,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M81",
+              "title": "Lineare Gleichungen",
+              "short_goal": "Lineare Gleichungen lösen und aufstellen",
+              "task_types": ["Gleichungen lösen", "Äquivalenzumformungen"],
+              "constraints": {"focus": "ax + b = c"},
+              "level_rules": {
+                "L1": "Einfache Gleichungen (x + a = b)",
+                "L2": "Mit Multiplikation (ax = b)",
+                "L3": "Komplexe Gleichungen"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 9,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M91",
+              "title": "Quadratische Gleichungen",
+              "short_goal": "Quadratische Gleichungen mit verschiedenen Verfahren lösen",
+              "task_types": ["pq-Formel", "Faktorisieren", "Quadratische Ergänzung"],
+              "constraints": {"focus": "ax² + bx + c = 0"},
+              "level_rules": {
+                "L1": "pq-Formel",
+                "L2": "Faktorisieren",
+                "L3": "Gemischte Verfahren"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 2, "mini_test_tasks": 6}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 10,
+      "subjects": [
+        {
+          "id": "mathe",
+          "name": "Mathe",
+          "icon": "123",
+          "topics": [
+            {
+              "topic_id": "M101",
+              "title": "Exponentialfunktionen",
+              "short_goal": "Exponentialfunktionen verstehen und anwenden",
+              "task_types": ["Funktionen zeichnen", "Eigenschaften erkennen", "Sachaufgaben"],
+              "constraints": {"focus": "f(x) = a·bˣ"},
+              "level_rules": {
+                "L1": "Funktionswerte berechnen",
+                "L2": "Graphen zeichnen",
+                "L3": "Anwendungsaufgaben"
+              },
+              "default_counts": {"tasks_per_level": 6, "word_problems": 3, "mini_test_tasks": 6}
+            }
+          ]
         }
       ]
     }
